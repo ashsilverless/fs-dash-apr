@@ -1,0 +1,16 @@
+Transaction Date,Deal Ref,Deal Type,ISIN Code,Fund Sedol,Fund Full Name,Currency Code,Accum Units Indicator,Client Type Description,Client Code,Client Name,Designation,Product Type,Shares,Transaction Price,Investment Amount
+13/11/2018,BD3569001ATEST,Sale,GB0009346486,934648,T. Bailey Growth Fund A Accumulation,GBP,Accumulation,Private Client,7161,,,ISA,3115.071,1.6051,5000
+13/11/2018,BD3570001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7161,,,ISA,18792.283,0.7982,15000
+14/11/2018,BD3611001A,Sale,GB0009346486,934648,T. Bailey Growth Fund A Accumulation,GBP,Accumulation,Private Client,7162,,,ISA,3142.875,1.5909,5000
+14/11/2018,BD3612001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7162,,,ISA,18846.589,0.7959,15000
+12/12/2018,BE7239001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7203,,FSP/FRA/01/G,Unwrapped,126839.168,0.7884,100000
+19/12/2018,BE9533001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Corporate Client,7271,,FSP/OPE/01/C,Unwrapped,1278281.989,0.7823,1000000
+19/12/2018,BE9536001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Corporate Client,7271,,FSP/OPE/02/C,Unwrapped,1278281.989,0.7823,1000000
+02/01/2019,BF7668001A,Periodic Advisor Charge,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7162,,,ISA,-23.529,0.7799,-18.35
+02/01/2019,BF7669001A,Periodic Advisor Charge,GB0009346486,934648,T. Bailey Growth Fund A Accumulation,GBP,Accumulation,Private Client,7162,,,ISA,-3.9,1.5334,-5.98
+02/01/2019,BF7670001ATEST,Periodic Advisor Charge,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7161,,,ISA,-23.452,0.7799,-18.29
+02/01/2019,BF7671001ATEST,Periodic Advisor Charge,GB0009346486,934648,T. Bailey Growth Fund A Accumulation,GBP,Accumulation,Private Client,7161,,,ISA,-3.867,1.5334,-5.93
+11/01/2019,BG0835001ATEST,Sale,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Corporate Client,7320,,4407 CLIENT1,Unwrapped,165145.063,0.788,130134.31
+07/01/2019,BF9148001ATEST,PEP/ISA transfer in,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7302,,,ISA,25655.011,0.7813,20044.26
+07/01/2019,BF9158001ATEST,PEP/ISA transfer in,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Private Client,7301,,,ISA,25655.011,0.7813,20044.26
+20/02/2019,BH8621001ATEST,Regular investment,GB00B1LB2Z79,B1LB2Z7,T. Bailey Dynamic Fund A  Accumulation,GBP,Accumulation,Corporate Client,7320,,4407 CLIENT1,Unwrapped,1037.383,0.8033,833.33

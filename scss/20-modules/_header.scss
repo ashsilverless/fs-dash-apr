@@ -1,0 +1,37 @@
+/*! == HEADER == */
+
+nav {
+    margin-bottom: 1rem;
+    .full-logo {
+        opacity: 0.8;
+        width:90%;
+        padding:1.5rem 0;
+    }
+}
+.main-menu {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding-bottom: .5rem;
+    &__item {
+        flex:1;
+        flex-basis: auto;
+        transition: all 0.3s ease;
+        margin: 0 1rem;
+        padding:.75rem .5rem;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: $font_size * .8px;
+        font-weight: 200;
+        &.active,
+        &:hover {
+            @include recessUI;
+        }
+    }
+    &.admin {
+        padding-bottom: 1rem;
+        .button {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,184 @@
+body {
+    overflow-y: scroll;
+    background-color: $color_grey_mid;
+}
+
+section {
+    min-height: 85vh;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    /*margin-bottom:1rem;*/
+    padding:.75rem 1rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    transition: text-shadow .5s ease;
+    &:hover {
+        cursor:pointer;
+        text-shadow: 0 0 10px #ffffff;
+        svg path {
+            fill:$color_green;
+        }
+    }
+    &__raised {
+        @include raisedUI
+    }
+    &__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+        width: 3rem;
+        height: 3rem;
+        padding: 0;
+        color: $color_blue;
+        svg {
+            transition: transform 1s ease;
+        }
+        &.active svg{
+            transform: rotate(180deg);
+        }
+    }
+    &__inline {
+        display: inline-flex;
+    }
+    &__danger {
+        color: $color_red;
+    }
+    &__delete {
+        display: inline-block;
+        margin: 0;
+        width:auto;
+        vertical-align: middle;
+        color: $color_grey_lightest;
+        svg {
+            width:1rem;
+        }
+    }
+    svg {
+    width: 1.25rem;
+    margin-right: 1rem;
+        path {
+            transition: fill .5s ease;
+            fill:#b8b8b8;
+        }
+    }
+}
+
+.full-logo {
+    max-width:100%;
+    height:auto;
+}
+
+.border-box {
+    @include border-box;
+}
+
+.recess-box {
+    @include recessUI;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    &__inner {
+        padding:5rem 7.5rem;
+        text-align: center;;
+    }
+    .logo {
+        display: inline-block;
+        opacity: 0.5;
+        margin-bottom: 3rem;
+        width:15rem;
+    }
+}
+
+form {
+    input,
+    input[type=password],
+    textarea {
+        @include recessUI;
+        display: block;
+        /*margin-bottom: 2rem;*/
+        width: 100%;
+        padding:.75rem 2rem;
+        background-color:$color_grey_mid !important;
+        font-weight: 200;
+        text-transform: uppercase;
+        &:focus {
+            outline:0;
+        }
+    }
+    input[type=submit] {
+        @include raisedUI;
+        display: block;
+        margin-bottom: 2rem;
+        width: auto;
+        padding:.75rem 2rem;
+        text-transform:uppercase;
+    }
+    input[type=checkbox],
+    input[type=radio] {
+        display: inline-block;
+        margin:0 1rem 0 0;
+        width:3rem;
+        height: 3rem;
+        vertical-align: middle;
+    }
+
+    label {
+        display: block;
+        margin-bottom:0;
+        text-align: left;
+        text-transform: uppercase;
+        color: $color_green;
+    }
+    p {
+        font-size: $font_size * .8px;
+        color: white;
+    }
+    .radio-item {
+        position: relative;
+        display: inline-block;
+        height: 3rem;
+        &:before {
+            @include recessUI;
+            content:'';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3rem;
+            height: 3rem;
+        }
+        input {
+            position: absolute;
+            z-index: 50;
+            opacity: 0;
+            cursor: pointer;
+            height: 3rem;
+            width: 3rem;
+        }
+        .star {
+            position: absolute;
+            opacity: 0;
+            top:0.5rem;
+            left: 0.5rem;
+            width:2rem;
+            height: 2rem;
+            polygon {
+                fill:$color_blue;
+            }
+        }
+        label {
+            margin-left: 4rem;
+            padding-top:1rem;
+        }
+    }
+    input.star-marker:checked ~ .star {
+        opacity:1
+    }
+}

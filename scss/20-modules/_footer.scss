@@ -1,0 +1,33 @@
+/*! == FOOTER == */
+footer {
+    margin:2rem 0 1rem;
+    svg {
+        display: inline-block;
+        vertical-align: bottom;
+        height: 2rem;
+        width:1.5rem;
+    }
+    >.container {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+    }
+    p {
+        display: inline-block;
+        font-size: $font_size * .85px;
+        color: #b8b8b8;
+        a {
+            display: inline-block;
+            border-left:1px solid grey;
+            padding: 0 1rem;
+            font-weight: 200;
+            color: #b8b8b8;
+            &:first-of-type {
+                margin-left: 1rem;
+            }
+        }
+    }
+    .help {
+        text-align: right;
+    }
+}
