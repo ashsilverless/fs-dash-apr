@@ -1,4 +1,8 @@
-<?php include 'header.php';?>
+<?php include 'header.php'
+
+//GIT IGNORE ON THIS FILE TO AVOID LOCCAL/REMOTE CONFLICTS
+
+;?>
 
   <!-- Page Wrapper -->
   <div id="wrapper">

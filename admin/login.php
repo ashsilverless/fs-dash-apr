@@ -1,4 +1,7 @@
 <?PHP
+
+//GIT IGNORE ON THIS FILE TO AVOID LOCCAL/REMOTE CONFLICTS
+
 session_start();
 	##################      LIVE SERVER     ###########################
 
