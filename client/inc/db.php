@@ -1,7 +1,4 @@
 <?php
-
-//GIT IGNORE ON THIS FILE TO AVOID LOCCAL/REMOTE CONFLICTS
-
 session_start();
 
 
@@ -15,9 +12,9 @@ if($_GET['err']!=""){
 
 	##################      LIVE SERVER     ###########################
 
-    $host = "localhost";
-	$user = "root";
-	$pass = "root";
+	$host = "localhost";
+	$user = "FeatherStoneDashboard";
+	$pass = "FSD>Login-1";
 	$db	 = "featherstone_db";
 	$charset = 'utf8mb4';
 

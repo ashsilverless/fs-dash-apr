@@ -1,13 +1,10 @@
 <?PHP
-
-//GIT IGNORE ON THIS FILE TO AVOID LOCCAL/REMOTE CONFLICTS
-
 session_start();
 	##################      LIVE SERVER     ###########################
 
 	$host = "localhost";
-	$user = "root";
-	$pass = "root";
+	$user = "FeatherStoneDashboard";
+	$pass = "FSD>Login-1";
 	$db	 = "featherstone_db";
 	$charset = 'utf8mb4';
 
@@ -59,7 +56,7 @@ try {
 
 
 if(!$_SESSION['loggedin']){
-    header("location:index.php");
+    header("location:home.php");
 }else{
 
     $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
