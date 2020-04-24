@@ -1,6 +1,6 @@
 <?php
 include("connection.php");
-
+//test amend
 $checkResult="";
 if($_POST['code']){
 $code=$connect->real_escape_string($_POST['code']);	
