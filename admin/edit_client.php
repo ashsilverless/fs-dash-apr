@@ -58,17 +58,36 @@ require_once('page-sections/header-elements.php');
 		<form action="editclient.php?id=<?=$client_id;?>" method="post" id="editclient" name="editclient" class="asset-form">
             <div class="content client">
                 <div class="client__pers-details">
-                    <div class="item half mb1">
-                        <label>Client Name</label>
-                        <input type="text" id="client_name" name="client_name" value="<?=$user_name;?>">
+                    <div class="item prefix mb1">
+                        <label>Prefix</label>
+                        <div class="select-wrapper">
+                            <select name="user_prefix" id="user_prefix" class="select-css">
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Dr">Dr</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="item half">
+                    <div class="item first-name">
+                        <label>First Name</label>
+                        <input type="text" id="first_name" name="first_name" value="<?= $first_name;?>">
+                    </div>
+                    <div class="item second-name">
+                        <label>Last Name</label>
+                        <input type="text" id="last_name" name="last_name" value="<?= $last_name;?>">
+                    </div>
+                    <div class="item user-name mb1">
+                        <label>User Name</label>
+                        <input type="text" id="user_name" name="user_name" value="<?= $user_name;?>">
+                    </div>
+                    <div class="item email mb1">
                         <label>Client Email</label>
                         <input type="text" id="client_email" name="client_email" value="<?=$email_address;?>">
                     </div>
-                    <div class="item mb1">
+                    <div class="item user-id">
                         <label>User ID</label>
-                            <input type="text" id="fs_client_code" name="fs_client_code" value="<?=$fs_client_code;?>">
+                        <input type="text" id="fs_client_code" name="fs_client_code" value="<?=$fs_client_code;?>">
                     </div>
                     <div class="item">
                         <label>Strategy</label>
@@ -90,7 +109,6 @@ require_once('page-sections/header-elements.php');
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
-
                     </div>
                     <div></div>
                 </div><!--pers details-->
@@ -127,7 +145,6 @@ require_once('page-sections/header-elements.php');
                         </div>
                          <?php } ?>
                     </div>
-                </div>
                 </div>
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
@@ -179,7 +196,6 @@ require_once('page-sections/header-elements.php');
                 <input type="submit" class="button button__raised" value="Save Changes">
             </div>
         </form>
-
     </div>
 </div>
 </div>
