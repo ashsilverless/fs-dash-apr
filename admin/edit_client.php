@@ -172,6 +172,7 @@ require_once('page-sections/header-elements.php');
                     <?php  }?>
                     <?php }	?>
                 </div>
+                </div>
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
@@ -181,9 +182,8 @@ require_once('page-sections/header-elements.php');
 
     </div>
 </div>
-
-      </div>
-    </div>
+</div>
+</div>
 
 
 

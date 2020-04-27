@@ -625,6 +625,7 @@ form.settings {
     grid-template-columns: 1fr;
     .client__pers-details {
         @include borderBottom;
+        grid-column: 1/3;
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-column-gap: 2rem;
@@ -639,11 +640,37 @@ form.settings {
         }
         .item.half {
             grid-column: span 3;
+            &.push-right {
+                grid-column: 4/6;
+            }
+        }
+        .item {
+            &.prefix {
+                grid-column: 1/2;
+            }
+            &.first-name {
+                grid-column: 2/4;
+            }
+            &.second-name {
+                grid-column: 4/7;
+            }
+            &.user-name {
+                grid-column: span 3;
+            }
+            &.email, &.password {
+                grid-column:span 3;
+                grid-row:3/4;
+            }
+
+            &.user-id {
+                grid-column:1/3;
+            }
         }
     }
     .client__pers-accounts,
     .client__linked-accounts {
         @include borderBottom;
+        grid-column: 1/3;
         display: grid;
         grid-template-columns: 2fr 1fr;
         margin-bottom:2rem;

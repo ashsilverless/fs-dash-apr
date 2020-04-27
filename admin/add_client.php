@@ -11,8 +11,8 @@ try {
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
 	 $query = "SELECT * FROM `tbl_fs_client_products` where bl_live = 1 GROUP BY fs_isin_code ASC ;";
-    
-  $result = $conn->prepare($query); 
+
+  $result = $conn->prepare($query);
   $result->execute();
 
   // Parse returned data
@@ -27,85 +27,160 @@ try {
 catch(PDOException $e) {
   echo $e->getMessage();
 }
-
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+<?php
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__.'/header.php');
+require_once('page-sections/header-elements.php');
+?>
 
-    <title>Dashboard</title>
+<div class="container">
+    <div class="border-box main-content">
+        <h1 class="heading heading__2">Add New Client</h1>
+		<form action="addclient.php" method="post" id="addclient" name="addclient" class="asset-form">
+            <div class="content client">
+                <div class="client__pers-details">
+                    <div class="item half mb1">
+                        <label>Client Name</label>
+                        <input type="text" id="user_name" name="user_name" value="">
+                    </div>
+                    <div class="item half">
+                        <label>Client Email</label>
+                        <input type="text" id="client_email" name="client_email" value="">
+                    </div>
+                    <div class="item half push-right mb2">
+                        <label>Password</label>
+                        <input type="password" id="password" name="password" value="">
+                        <input type="text" id="passwordview" name="passwordview" value="">
+                        <a href="#" id="genpass" style="margin-left:15px; font-size:0.8em; font-style:italic;">Generate</a> <a href="#" id="viewpass" style="margin-left:15px; font-size:0.8em; font-style:italic;">View</a>
+                    </div>
+                    <div class="item mb1">
+                        <label>User ID</label>
+                            <input type="text" id="fs_client_code" name="fs_client_code" value="">
+                    </div>
+                    <div class="item">
+                        <label>Strategy</label>
+                            <div class="select-wrapper">
+                            <select name="strategy" id="strategy" class="select-css">
+                              <option value="Sensible" <?php if(strtolower ($strategy)=='sensible'){?>selected = 'selected' <?php }?>>Sensible</option>
+                              <option value="Steady" <?php if(strtolower ($strategy)=='steady'){?>selected = 'selected' <?php }?>>Steady</option>
+                              <option value="Serious" <?php if(strtolower ($strategy)=='serious'){?>selected = 'selected' <?php }?>>Serious</option>
+                            </select>
+                            <i class="fas fa-sort-down"></i>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label>Client Type</label>
+                        <div class="select-wrapper">
+                            <select name="fs_client_desc" id="fs_client_desc" class="select-css">
+                              <option value="Private Client" <?php if(strtolower ($desc)=='private client'){?>selected = 'selected' <?php }?>>Private</option>
+                              <option value="Corporate Client" <?php if(strtolower ($desc)=='corporate client'){?>selected = 'selected' <?php }?>>Corporate</option>
+                            </select>
+                            <i class="fas fa-sort-down"></i>
+                        </div>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+                    </div>
+                    <div></div>
+                </div><!--pers details-->
+                <div class="client__pers-accounts">
+                    <h3 class="heading heading__2">Accounts</h3>
+                    <a href="#" class="addasset button button__raised button__inline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg> Add Account</a>
+                    <div class="recess-box">
+                    <div class="account-table">
+                        <div class="account-table__head">
+                            <label>Client Code</label>
+                            <label>ISIN Code</label>
+                            <label>Designator</label>
+                            <label>Type</label>
+                            <label>Display Name</label>
+                        </div>
+                        <?php foreach($products as $product) { ?>
+                        <div class="account-table__body">
+                            <input type="text" id="fs_client_code<?=$product['id'];?>" name="fs_client_code<?=$product['id'];?>" value="<?=$product['fs_client_code'];?>" readonly>
 
-    <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-	
-	<!-- Upload script -->
-	<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
+                            <input type="text" id="fs_isin_code<?=$product['id'];?>" name="fs_isin_code<?=$product['id'];?>" value="<?=$product['fs_isin_code'];?>" readonly>
 
-  </head>
+                            <input type="text" id="designator<?=$product['id'];?>" name="designator<?=$product['id'];?>" value="<?=$product['fs_designation'];?>" readonly>
 
-  <body>
+                            <select name="product_type<?=$product['id'];?>" id="product_type<?=$product['id'];?>">
+                                <option value="ISA" <?php if(strtolower ($product['fs_product_type'])=='isa'){?>selected = 'selected' <?php }?>>ISA</option>
+                                <option value="JISA" <?php if(strtolower ($product['fs_product_type'])=='jisa'){?>selected = 'selected' <?php }?>>JISA</option>
+                                <option value="PIA" <?php if(strtolower ($product['fs_product_type'])=='pia'){?>selected = 'selected' <?php }?>>PIA</option>
+                                <option value="SIPP" <?php if(strtolower ($product['fs_product_type'])=='sipp'){?>selected = 'selected' <?php }?>>SIPP</option>
+                                <option value="Unwrapped" <?php if(strtolower ($product['fs_product_type'])=='unwrapped'){?>selected = 'selected' <?php }?>>Unwrapped</option>
+                            </select>
 
-	<nav class="navbar navbar-dark sticky-top bg-white flex-md-nowrap p-0">
-		<div id="logo" class="col-md-2"><img src="images/fs_logo1.jpg" alt="" height="110" align="left"/></div>
-		<div id="righthandside" class="col-md-10">
-			<div id="title" style="cleath:both;"><h2><strong>Client Portal Admin Area</strong></h2></div>
-			<div id="menuitems" class="mt-4">
-				<a class="btn btn-admin shadow-sm " href="home.php">Dashboard</a>
-				<a class="btn btn-admin shadow-sm " href="funds.php">Funds</a>
-				<a class="btn btn-admin shadow-sm " href="assets.php">Asset Allocation &amp; Holdings</a>
-				<a class="btn btn-admin shadow-sm " href="themes.php">Themes</a>
-				<a class="btn btn-admin shadow-sm " href="peers.php">Peers</a>
-				<a class="btn btn-admin shadow-sm active" href="clients.php">Clients</a>
-				<a class="btn btn-admin shadow-sm" href="staff.php">Staff</a>
-				
-				<span style="float:right;"><a class="btn btn-grey shadow-sm" href="#" data-toggle="modal" data-target="#logoutModal">Log Out</a></span>
-			</div>
-		</div>
-    </nav>
+                            <input type="text" id="display_name<?=$product['id'];?>" name="display_name<?=$product['id'];?>" value="<?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?>" readonly>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block sidebar">
-          <div class="sidebar-sticky mt-115 ml-3">
-			  <h4>Hello <?=$_SESSION['username'];?></h4>
-			  <p>Last Login:<br>1:24pm on Tue 12 Dec 19.</p>
-			  <p><a href="#">Not You? Click here</a></p>
-			  <a class="btn btn-admin shadow-sm" href="#">Account Settings</a>
-			  <a class="btn btn-admin shadow-sm" href="#">Help &amp; Support</a>
-          </div>
-        </nav>
+                        </div>
+                         <?php } ?>
+                    </div>
+                </div>
+                </div>
+                <div class="client__linked-accounts">
+                    <h3 class="heading heading__2">Linked Accounts</h3>
+                    <a href="#" class="addasset button button__raised button__inline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg> Add Linked Account</a>
+                    <div class="account-table">
+                        <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
+                        <?php for($b=0;$b<count($lnk_array);$b++){
+                             if($lnk_array[$b]!=''){  ?>
+                        <h3 class="heading heading__4">Linked Account Holder: Name Name <?=getUserName($lnk_array[$b])?></h3>
+                        <div class="recess-box">
+                        <div class="account-table__head">
+                            <label>Client Code</label>
+                            <label>ISIN Code</label>
+                            <label>Designator</label>
+                            <label>Type</label>
+                            <label>Display Name</label>
+                        </div><!--head-->
+						<?php
+						  // Connect and create the PDO object
+						  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+						  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 mb-5">
+						  $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
+
+						  $result = $conn->prepare($query);
+						  $result->execute();
+
+						  // Parse returned data
+						  while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+                            <!--For each row, fetch this-->
+                            <div class="account-table__body">
+    							<p><?=$lnk_array[$b];?></p>
+                                <p><?=$row['fs_isin_code'];?></p>
+                                <p><?=$row['fs_designation'];?></p>
+                                <p><?=$row['fs_product_type'];?></p>
+                                <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
+                            </div><!--body-->
+						  <?php }
+						  $conn = null; // Disconnect
+						}?>
+                    </div>
+                    <?php  }?>
+                    <?php }	?>
+                </div>
+                </div>
+            </div><!--content-->
+            <div class="control">
+                <h3 class="heading heading__2">Account Actions</h3>
+                <input type="submit" class="button button__raised" value="Save Changes">
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
+</div>
+
+<!--
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 mb-5">
 
         <h1 class="h2">Details</h1>
-	
+
 		<form action="addclient.php" method="post" id="addclient" name="addclient" class="mt-5">
-		<div class="col-md-9" style="float:left;">	
-				
+		<div class="col-md-9" style="float:left;">
+
 			<div class="col-md-2" style="float:left;">
 				<p>Prefix<br>
 					<select name="user_prefix" id="user_prefix">
@@ -116,46 +191,46 @@ catch(PDOException $e) {
 					</select>
 					</p>
 			</div>
-			
+
 			<div class="col-md-3" style="float:left;">
 				<p>First Name<br>
 					<input type="text" id="first_name" name="first_name" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Surname<br>
 					<input type="text" id="last_name" name="last_name" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-3" style="float:left;">
 				<p>Expires<br>
 					<input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="" size="6" style="width:90%" ></p>
 			</div>
-			
-			<!-- #################################### -->
-			
+
+
+
 			<div class="col-md-4" style="float:left;">
 				<p>Client User Name<br>
 					<input type="text" id="user_name" name="user_name" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Client Email<br>
 					<input type="text" id="client_email" name="client_email" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Password <a href="#" id="genpass" style="margin-left:15px; font-size:0.8em; font-style:italic;">Generate</a> <a href="#" id="viewpass" style="margin-left:15px; font-size:0.8em; font-style:italic;">View</a><br>
 					<input type="password" id="password" name="password" style="width:90%" value=""><input type="text" id="passwordview" name="passwordview" style="width:90%" value=""></p>
 			</div>
-			
-			<!-- #################################### -->
-			
+
+
+
 			<div class="col-md-2a" style="float:left;">
 				<p>Client Code<br>
 					<input type="text" id="fs_client_code" name="fs_client_code" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-2a" style="float:left;">
 				<p>Strategy<br>
 					<select name="strategy" id="strategy">
@@ -165,7 +240,7 @@ catch(PDOException $e) {
 					</select>
 			   </p>
 			</div>
-			
+
 			<div class="col-md-2a" style="float:left;">
 				<p>Client Type<br>
 					<select name="fs_client_desc" id="fs_client_desc">
@@ -174,22 +249,22 @@ catch(PDOException $e) {
 					</select>
 				</p>
 			</div>
-			
+
 			<div class="col-md-2a" style="float:left;">
 				<p>Designator<br>
 					<input type="text" id="designator" name="designator" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-2a" style="float:left;">
 				<p>Mobile Phone<br>
 					<input type="text" id="telephone" name="telephone" style="width:90%" value=""></p>
 			</div>
-			
-			<!-- #################################### -->
-			
+
+
+
 
 			<h4 class="mt-5">Add Account</h4>
-<!--			
+<!--
   `fs_deal_ref` varchar(250) DEFAULT NULL,
   `fs_deal_type` varchar(250) DEFAULT NULL,
   													`fs_isin_code` varchar(250) DEFAULT NULL,
@@ -204,9 +279,9 @@ catch(PDOException $e) {
   													`fs_product_type` varchar(100) DEFAULT NULL,
   `fs_shares` decimal(10,3) DEFAULT NULL,
 
-  `fs_client_id` int(10) NOT NULL,	
--->			
-			<div class="col-md-8" style="float:left;">
+  `fs_client_id` int(10) NOT NULL,
+-->
+		<!--	<div class="col-md-8" style="float:left;">
 				<p>ISIN Code<br>
 					<select name="fs_isin_code" id="fs_isin_code">
 						<option value="" selected="selected">Existing ISIN Code</option>
@@ -214,18 +289,18 @@ catch(PDOException $e) {
 						<option value="GB00B1LB2Z79">GB00B1LB2Z79</option>
 						<option value="GB00BJQWRN41">GB00BJQWRN41</option>
 					</select>
-					
+
 
 
 
 					Or New : <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" style="width:50%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Fund Sedol<br>
 					<input type="text" id="fs_fund_sedol" name="fs_fund_sedol" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Product Type<br>
 					<select name="fs_product_type" id="fs_product_type">
@@ -236,20 +311,20 @@ catch(PDOException $e) {
 						<option value="Unwrapped">Unwrapped</option>
 					</select></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Fund Name<br>
 					<input type="text" id="fs_fund_name" name="fs_fund_name" style="width:90%" value=""></p>
 			</div>
-			
+
 			<div class="col-md-4" style="float:left;">
 				<p>Designation<br>
 					<input type="text" id="fs_designation" name="fs_designation" style="width:90%" value=""></p>
 			</div>
-			
-			
-			
-			
+
+
+
+
 			<!--
 			<div class="col-md-12  table-responsive mt-5">
 			  <table class="table table-sm table-striped">
@@ -261,7 +336,7 @@ catch(PDOException $e) {
 					  <td width="15%" bgcolor="#FFFFFF"><strong>Type</strong></td>
 					  <td width="30%" bgcolor="#FFFFFF"><strong>Display Name</strong></td>
 				  </tr>
-			
+
 			<?php foreach($products as $product) { ?>
 				<tr>
 					<td><input type="text" id="fs_client_code<?=$product['id'];?>" name="fs_client_code<?=$product['id'];?>" style="width:90%" value="<?=$product['fs_client_code'];?>" readonly></td>
@@ -281,14 +356,14 @@ catch(PDOException $e) {
 			  </table>
 			</div>
 			-->
-			
 
-			
+
+<!--
 			<h4 class="mt-5">Linked Accounts</h4>
-			
+
 
 			<?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
-			
+
 				<?php for($b=0;$b<count($lnk_array);$b++){
                      if($lnk_array[$b]!=''){  ?>
 					<p><strong>Linked Account Holder :</strong> <?=getUserName($lnk_array[$b])?></p>
@@ -301,7 +376,7 @@ catch(PDOException $e) {
 							  <td width="15%" bgcolor="#FFFFFF"><strong>Type</strong></td>
 							  <td width="30%" bgcolor="#FFFFFF"><strong>Display Name</strong></td>
 							</tr>
-					
+
 						  <?php
 
 						  // Connect and create the PDO object
@@ -310,7 +385,7 @@ catch(PDOException $e) {
 
 						  $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
 
-						  $result = $conn->prepare($query); 
+						  $result = $conn->prepare($query);
 						  $result->execute();
 
 						  // Parse returned data
@@ -328,9 +403,9 @@ catch(PDOException $e) {
 
 						}?>
 						</tbody>
-			  </table>		
+			  </table>
                   <?php  }?>
-				
+
             <?php }	?>
 
 		</div>
@@ -339,83 +414,34 @@ catch(PDOException $e) {
             <h5>Client Actions</h5>
             <input type="submit" class="btn btn-grey" value="Save Changes">
         </div>
-	
-</form>		
-			
-			
-		
-            
+
+</form>
+
+
+
+
 		<div id="assetdetails" class="col-md-12 mt-5"></div>
-            
+
         </main>
       </div>
     </div>
+-->
 
+<?php
+require_once('page-sections/footer-elements.php');
+require_once('modals/delete.php');
+require_once('modals/logout.php');
+require_once('modals/delete-cat.php');
+require_once(__ROOT__.'/global-scripts.php');?>
 
-	  
-<!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="index.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-	  
-<!-- Delete Modal-->
-  <div class="modal deletefund" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModal">Delete this Asset?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Continue" below if you are ready to<br>delete this Asset.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-danger btn-ok">Delete</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
-      
-     <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <!-- Date Picker -->	  
-	<link rel="stylesheet" href="css/bootstrap-datepicker3.css">
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	  
     <script>
       feather.replace()
     </script>
 
-   
-      
+
+
     <script>
-		
+
 	function randomPassword(length) {  // Super quick and dirty password generator
 		var chars = "abcdefghijklmnopqrstuvwxyz@#$%-+<>-_!*ABCDEFGHIJKLMNOP1234567890";
 		var pass = "";
@@ -425,7 +451,7 @@ catch(PDOException $e) {
 		}
 		return pass;
 	}
-		
+
 	function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -435,40 +461,40 @@ catch(PDOException $e) {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-		
+
 	$( document ).ready(function() {
 
         $("#passwordview").hide();
-		
+
 		$('#destruct_date').datepicker({  format: "yyyy-mm-dd" , todayHighlight: true });
-		
+
 		 $("#passwordview").keyup(function( event ) {
 		  	newPass =  $("#passwordview").val();
 			$("#password").val(newPass);
-			
+
 			}).keydown(function( event ) {
 			  if ( event.which == 13 ) {
 				event.preventDefault();
 			  }
 		});
-		
+
 		$("#password").keyup(function( event ) {
 		  	newPass =  $("#password").val();
 			$("#passwordview").val(newPass);
-			
+
 			}).keydown(function( event ) {
 			  if ( event.which == 13 ) {
 				event.preventDefault();
 			  }
 		});
-		
+
 		$('#genpass').click(function (e){
 		  e.preventDefault();
 			newPass = randomPassword(10);
 			$("#password").val(newPass);
 			$("#passwordview").val(newPass);
 		});
-		
+
 		$('#viewpass').click(function (e){
 		  e.preventDefault();
 			$("#password").toggle();
