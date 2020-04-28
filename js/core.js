@@ -6,7 +6,16 @@ $('.toggle').on('click', function() {
 })
 
 $('.asset-wrapper__table .toggle').on('click', function() {
-  $(this).closest( '.item' ).toggleClass('active');
+    $('.item.active').removeClass('active');
+    $(this).closest( '.item' ).toggleClass('active');
+})
+
+$('circle.donut-segment').on('click', function() {
+    $(this).toggleClass('selected');
+    $('.item.active, text.active').removeClass('active');
+    var selectedId = '.' + $(this).attr('id');
+    $(selectedId).toggleClass('active');
+    $('text " + "selectedId" + "').toggleClass('active');    
 })
 
 $.fn.toggleText = function(t1, t2){

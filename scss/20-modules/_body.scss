@@ -439,6 +439,21 @@ form.fund {
     margin-top:2rem;
     &__chart {
         align-self: flex-start;
+        svg {
+            circle {
+            }
+            text {
+                transform: rotate(90deg);
+                transform-origin: 50% 50%;
+                font-size: .25rem;
+                fill: white;
+                opacity:0;
+                transition: opacity 0.5s ease;
+                &.active {
+                    opacity:1 !important;
+                }
+            }
+        }
     }
     &__table {
         .head,
@@ -493,6 +508,7 @@ form.fund {
 }
 
 .key {
+    margin-top: 2rem;
     padding:2rem 1rem;
     &__item {
         display: grid;

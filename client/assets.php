@@ -73,7 +73,8 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
               $thisAsset = $asset['fs_growth_steady'];
               $assetBalance = 100 - $thisAsset;
             ?>
-               <circle id="asset-id-<?=$asset['id'];?>" class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
+               <circle id="asset<?=$asset['id'];?>" class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
+               <text x="22" y="22" text-anchor="middle" alignment-baseline="middle" class="asset<?=$asset['id'];?>"><?=$thisAsset;?>%</text>
                <?php $assetTotal = $thisAsset += $assetTotal;?>
            <?php }?>
         </svg>
@@ -214,44 +215,6 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
 
     <script>
-      $(".toggler").click(function(e){
-        e.preventDefault();
-          $('.'+$(this).attr('data-prod-name')).toggle();
-          $('.head'+$(this).attr('data-prod-name')).toggleClass( "highlight normal" );
-          $('.arrow'+$(this).attr('data-prod-name'), this).toggleClass("fa-caret-up fa-caret-down");
-    	});
-
-
-Chart.defaults.global.legend.display = false;
-
-/* ##########################################       PIE CHART     ################################################## */
-
-     var ctx = document.getElementById('piechart');
-
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-        labels: [<?=substr($assetsName, 0, -1);?>],
-        options: { legend: {display: true}, tooltips: {enabled: true}},
-        datasets: [{
-            data: [<?=substr($assetsData, 0, -1);?>],
-			ids: [<?=substr($assetsID, 0, -1);?>],
-            backgroundColor: ['#82C2A7','#D64E4E','#D5C661','#5889B4','#63678A'],
-            borderWidth: 0
-        	}]
-    	},
-      });
-
-	$("#piechart").click(
-        function(evt){
-            var activePoints = myChart.getElementsAtEvent(evt);
-			var clickedElementindex = activePoints[0]["_index"];
-			var valueID = myChart.data.datasets[0].ids[clickedElementindex];
-
-			$('.'+valueID).toggle();
-            $('.head'+valueID).toggleClass( "highlight normal" );
-            $('.arrow'+valueID, this).toggleClass("fa-caret-up fa-caret-down");
-        });
 
     </script>
   </body>
