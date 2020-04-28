@@ -9,6 +9,7 @@ $growth_serious = onlyNum($_POST['growth_serious']);
 $cat_new = sanSlash($_POST['cat_new']);
 $cat_ids = explode("|",$_POST['cat_ids']);
 $cat_id = $_POST['cat'];
+$asset_color = sanSlash($_POST['asset_color']);
 
 $name = $_SESSION['fs_admin_name'];
 
@@ -16,7 +17,7 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$sql = "INSERT INTO `tbl_fs_assets` (`fs_asset_name`, `fs_asset_narrative`, `fs_growth_steady`, `fs_growth_sensible`, `fs_growth_serious`, `confirmed_by`, `confirmed_date`, `cat_id`) VALUES ('$asset_name', '$asset_narrative', '$growth_steady', '$growth_sensible', '$growth_serious', '$name', '$str_date','$cat_id')";
+	$sql = "INSERT INTO `tbl_fs_assets` (`fs_asset_name`, `fs_asset_narrative`, `fs_growth_steady`, `fs_growth_sensible`, `fs_growth_serious`, `confirmed_by`, `confirmed_date`, `cat_id`, `asset_color`) VALUES ('$asset_name', '$asset_narrative', '$growth_steady', '$growth_sensible', '$growth_serious', '$name', '$str_date','$cat_id', '$asset_color')";
 
     $conn->exec($sql);
 	$lastId = $conn->lastInsertId();

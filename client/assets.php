@@ -58,7 +58,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
         <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut" aria-labelledby="" role="img" style="transform:rotate(-90deg);">
             <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#484848" role="presentation"></circle>
-            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#666666" stroke-width="10" role="presentation"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#414141" stroke-width="10" role="presentation"></circle>
             <!--For each holding, create a segment like this
             Params =
             Stroke-dasharray: two figures.  The first is the value of the holding (ie, 30%); the second is the first value minus 100 (ie 30 - 100) therefore 70.
@@ -76,21 +76,46 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                <?php $assetTotal = $thisAsset += $assetTotal;?>
            <?php }?>
         </svg>
+        <div class="key border-box">
+            <?php foreach($assetData as $asset) {
+              $assetsData .= $asset['fs_growth_steady'].',';
+              $assetsID .= $asset['id'].',';
+              $assetsName .= "'".$asset['fs_asset_name']."',";
+              $thisAsset = $asset['fs_growth_steady'];
+              $assetBalance = 100 - $thisAsset;
+            ?>
+            <div class="key__item">
+                <div class="color"></div>
+                <h4 class="heading heading__4"><?=$asset['fs_asset_name'];?></h4>
+            </div>
+            <?php }?>
+        </div>
     </div>
     <div class="asset-wrapper__table">
-TABLE
+        <div class="head">
+            <h4 class="heading heading__4">Fund</h4>
+            <h4 class="heading heading__4">Growth Rate</h4>
+        </div>
+        <?php foreach($assetData as $asset) {
+          $assetsData .= $asset['fs_growth_steady'].',';
+          $assetsID .= $asset['id'].',';
+          $assetsName .= "'".$asset['fs_asset_name']."',";
+          $thisAsset = $asset['fs_growth_steady'];
+          $assetBalance = 100 - $thisAsset;
+        ?>
+        <div class="item asset<?=$asset['id'];?>">
+            <h4 class="heading heading__4"><?=$asset['fs_asset_name'];?></h4>
+            <h4 class="heading heading__4"><?=$asset['fs_growth_steady'];?></h4>
+            <div class="toggle button button__raised button__toggle">
+                <i class="fas fa-caret-down arrow"></i>
+            </div>
+            <p><?=$asset['fs_asset_narrative'];?></p>
+        </div>
+        <?php }?>
     </div>
-
-
-
-
-
-
 </div>
 
-
-
-                      <div class="container">
+                      <!--<div class="container">
                           <div class="row">
                               <div class="col-md-4">
                                 <canvas class="my-4 w-100 chartjs-render-monitor" id="piechart" height="286"></canvas>
@@ -124,17 +149,11 @@ TABLE
                                 </tbody>
                               </table>
                           </div>
-                          </div><!--row-->
+                          </div>
                       </div>
-
                 </div>
-
-
-
 			</div><!--9-->
 
-
-		</div>
     </div>
 </div>
 

@@ -5,6 +5,10 @@ $('.toggle').on('click', function() {
   $(this).closest( '.data-table__account-wrapper' ).addClass('active');
 })
 
+$('.asset-wrapper__table .toggle').on('click', function() {
+  $(this).closest( '.item' ).toggleClass('active');
+})
+
 $.fn.toggleText = function(t1, t2){
   if (this.text() == t1) this.text(t2);
   else                   this.text(t1);

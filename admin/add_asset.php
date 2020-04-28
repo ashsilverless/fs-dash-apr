@@ -33,6 +33,7 @@ catch(PDOException $e) {
         <div class="details">
             <label>Asset Name</label>
             <input type="text" id="asset_name" name="asset_name">
+            <input type="color" id="asset_color" name="asset_color" value="#ff0000" style="height:4rem;">
             <label>Narrative</label>
             <textarea name="asset_narrative" id="asset_narrative"></textarea>
             <h4 class="heading heading__4">Growth</h4>
@@ -77,7 +78,7 @@ catch(PDOException $e) {
                 <input type="submit" class="button button__raised" value="Save Changes">
             </div>
         </div>
-    
+
 </form>
 
     <script>

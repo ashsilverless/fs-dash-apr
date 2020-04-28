@@ -78,6 +78,7 @@ catch(PDOException $e) {
         <div class="details">
             <label>Asset Name</label>
             <input type="text" id="asset_name" name="asset_name" value="<?= $asset_name;?>" class="mb1">
+                        <input type="color" id="asset_color" name="asset_color" value="<?= $asset_color;?>" style="height:4rem;">
             <label>Narrative</label>
             <textarea name="asset_narrative" id="asset_narrative" class="mb2"><?= $asset_narrative;?></textarea>
             <h4 class="heading heading__4 mb1">Growth</h4>
