@@ -69,10 +69,11 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
               $assetsData .= $asset['fs_growth_steady'].',';
               $assetsID .= $asset['id'].',';
               $assetsName .= "'".$asset['fs_asset_name']."',";
+              $asset_color = "".$asset['asset_color']."";
               $thisAsset = $asset['fs_growth_steady'];
               $assetBalance = 100 - $thisAsset;
             ?>
-               <circle class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?php $color = sprintf("#%06x",rand(0,16777215)); echo $color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
+               <circle id="asset-id-<?=$asset['id'];?>" class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
                <?php $assetTotal = $thisAsset += $assetTotal;?>
            <?php }?>
         </svg>
@@ -81,11 +82,12 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
               $assetsData .= $asset['fs_growth_steady'].',';
               $assetsID .= $asset['id'].',';
               $assetsName .= "'".$asset['fs_asset_name']."',";
+              $asset_color = "".$asset['asset_color']."";
               $thisAsset = $asset['fs_growth_steady'];
               $assetBalance = 100 - $thisAsset;
             ?>
             <div class="key__item">
-                <div class="color"></div>
+                <div class="color" style="background-color:<?= $asset_color;?>;"></div>
                 <h4 class="heading heading__4"><?=$asset['fs_asset_name'];?></h4>
             </div>
             <?php }?>
@@ -100,10 +102,11 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
           $assetsData .= $asset['fs_growth_steady'].',';
           $assetsID .= $asset['id'].',';
           $assetsName .= "'".$asset['fs_asset_name']."',";
+          $asset_color = "".$asset['asset_color']."";
           $thisAsset = $asset['fs_growth_steady'];
           $assetBalance = 100 - $thisAsset;
         ?>
-        <div class="item asset<?=$asset['id'];?>">
+        <div class="item asset<?=$asset['id'];?>" data-asset="asset-id-<?=$asset['id'];?>">
             <h4 class="heading heading__4"><?=$asset['fs_asset_name'];?></h4>
             <h4 class="heading heading__4"><?=$asset['fs_growth_steady'];?></h4>
             <div class="toggle button button__raised button__toggle">

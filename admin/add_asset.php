@@ -33,7 +33,6 @@ catch(PDOException $e) {
         <div class="details">
             <label>Asset Name</label>
             <input type="text" id="asset_name" name="asset_name">
-            <input type="color" id="asset_color" name="asset_color" value="#ff0000" style="height:4rem;">
             <label>Narrative</label>
             <textarea name="asset_narrative" id="asset_narrative"></textarea>
             <h4 class="heading heading__4">Growth</h4>
@@ -66,9 +65,10 @@ catch(PDOException $e) {
                 <a href="#" data-href="deletecat.php?id=<?=$cats[$a]['id'];?>" data-toggle="modal" data-target="#confirm-catdelete" class=" button button__delete elcat"><i data-feather="trash-2"></i></a><br>
                 <?php } ?>
             </div><!--inner-->
-            <label>Add Category</label>
-            <input type="text" id="cat_new" name="cat_new"><input type="hidden" id="cat_ids" name="cat_ids" value="<?=substr($idString, 0, -1);?>">
-            <a href="#" class="addasset button button__raised button__inline">Add Category</a>
+            <label>Add In New Category</label>
+            <input type="text" id="cat_new" class="mb1" name="cat_new"><input type="hidden" id="cat_ids" name="cat_ids" value="<?=substr($idString, 0, -1);?>">
+            <label>Asset Colour</label>
+            <input type="color" id="asset_color" class="color-picker" name="asset_color" value="#90adab">
         </div>
     </div>
 

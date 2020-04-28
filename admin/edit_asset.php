@@ -16,7 +16,7 @@ try {
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			  $asset_name = $row['fs_asset_name'];
 			  $asset_narrative = $row['fs_asset_narrative'];
-
+              $asset_color = $row['asset_color'];
 
 			  $row['fs_growth_steady'] == '0' ? $steady = '' : $steady = $row['fs_growth_steady'];
 			  $row['fs_growth_sensible'] == '0' ? $sensible = '' : $sensible = $row['fs_growth_sensible'];
@@ -78,7 +78,6 @@ catch(PDOException $e) {
         <div class="details">
             <label>Asset Name</label>
             <input type="text" id="asset_name" name="asset_name" value="<?= $asset_name;?>" class="mb1">
-                        <input type="color" id="asset_color" name="asset_color" value="<?= $asset_color;?>" style="height:4rem;">
             <label>Narrative</label>
             <textarea name="asset_narrative" id="asset_narrative" class="mb2"><?= $asset_narrative;?></textarea>
             <h4 class="heading heading__4 mb1">Growth</h4>
@@ -115,7 +114,10 @@ catch(PDOException $e) {
                 <?php } ?>
             </div><!--inner-->
             <label>Insert In New Category</label>
-            <input type="text" id="cat_new" name="cat_new"><input type="hidden" id="cat_ids" name="cat_ids" value="<?=substr($idString, 0, -1);?>">
+            <input type="text" id="cat_new" class="mb1"
+            name="cat_new"><input type="hidden" id="cat_ids" name="cat_ids" value="<?=substr($idString, 0, -1);?>">
+            <label>Asset Colour</label>
+            <input type="color" id="asset_color" class="color-picker" name="asset_color" value="<?= $asset_color;?>">
         </div><!--cats-->
     </div>
 
