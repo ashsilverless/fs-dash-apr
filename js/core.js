@@ -13,7 +13,7 @@ $.fn.toggleText = function(t1, t2){
 
 $('.data-toggle').on('click', function() {
     $('.main-content').toggleClass('show-chart');
-    $(this).toggleText('View Charts', 'View Tables');
+    $(this).toggleText('View Tables', 'View Charts');
 })
 
 $(".add").click(function(e){

@@ -67,7 +67,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
         <div class="border-box main-content">
               <div class="main-content__head">
                   <h1 class="heading heading__1">Peer Group Comparison</h1>
-                  <p>Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
+                  <p class="mb3">Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
               </div>
               <canvas class="chartjs-render-monitor" id="scatterchart"></canvas>
         </div>

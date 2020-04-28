@@ -42,7 +42,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     <div class="col-md-9">
         <div class="border-box main-content">
             <div class="main-content__head">
-                <h1 class="heading heading__1"><strong>Account Settings</strong></h1>
+                <h1 class="heading heading__1">Account Settings</h1>
             </div>
 
 		    <form action="editclient.php" method="post" id="editclient" name="editclient" class="settings">
@@ -50,7 +50,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                 <div class="fixed-details">
                     <h2 class="heading heading__2">Details</h2>
                     <label for="user_name" id="userlabel" >User Name</label>
-                    <input type="text" id="user_name" name="user_name" value="<?=$clientData[0]['user_name'];?>">
+                    <input type="text" id="user_name" name="user_name" value="<?=$clientData[0]['user_name'];?>" class="mb1">
                     <label for="email_address" id="emaillabel" >Email</label>
                     <input type="text" id="email_address" name="email_address" value="<?=$clientData[0]['email_address'];?>">
                 </div>
@@ -58,13 +58,13 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                 <div class="variable-details">
                     <h2 class="heading heading__2">Change Password</h2>
                     <label for="password" id="currentpasswordlabel" >Current Password</label>
-                    <input type="password" id="password" name="password" value="">
+                    <input type="password" id="password" name="password" value="" class="mb1">
 
                     <label for="newpassword" id="newpasswordlabel" >New Password</label>
-                    <input type="password" id="newpassword" name="newpassword" value="">
+                    <input type="password" id="newpassword" name="newpassword" value="" class="mb1">
 
                     <label for="confirmpassword" id="confirmpasswordlabel" >Confirm Password</label>
-                    <input type="password" id="confirmpassword" name="confirmpassword" value="">
+                    <input type="password" id="confirmpassword" name="confirmpassword" value="" class="mb1">
                 </div>
 
                 <div class="confirm-message">

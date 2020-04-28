@@ -53,15 +53,42 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                         <p>Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
                     </div>
 
-                    <!--<svg width="100%" height="100%" viewBox="0 0 42 42" class="donut" aria-labelledby="beers-title beers-desc" role="img" style="transform:rotate(-90deg);">
-                          <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff" role="presentation"></circle>
-                          <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3" role="presentation"></circle>
+<div class="asset-wrapper">
+    <div class="asset-wrapper__chart">
 
-                          <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="blue" stroke-width="4" stroke-dasharray=" 50 50" stroke-dashoffset="70" aria-labelledby="donut-segment-1-title donut-segment-1-desc"></circle>
-                           <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99" stroke-width="4" stroke-dasharray="30 70" stroke-dashoffset="0" aria-labelledby="donut-segment-1-title donut-segment-1-desc"></circle>
+        <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut" aria-labelledby="" role="img" style="transform:rotate(-90deg);">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#484848" role="presentation"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#666666" stroke-width="10" role="presentation"></circle>
+            <!--For each holding, create a segment like this
+            Params =
+            Stroke-dasharray: two figures.  The first is the value of the holding (ie, 30%); the second is the first value minus 100 (ie 30 - 100) therefore 70.
+
+            Stroke-dashoffset: This is the running sum of the value of the holding, expressed as a negative value to enable positioning.
+            -->
+            <?php foreach($assetData as $asset) {
+              $assetsData .= $asset['fs_growth_steady'].',';
+              $assetsID .= $asset['id'].',';
+              $assetsName .= "'".$asset['fs_asset_name']."',";
+              $thisAsset = $asset['fs_growth_steady'];
+              $assetBalance = 100 - $thisAsset;
+            ?>
+               <circle class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?php $color = sprintf("#%06x",rand(0,16777215)); echo $color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
+               <?php $assetTotal = $thisAsset += $assetTotal;?>
+           <?php }?>
+        </svg>
+    </div>
+    <div class="asset-wrapper__table">
+TABLE
+    </div>
 
 
-                       </svg>-->
+
+
+
+
+</div>
+
+
 
                       <div class="container">
                           <div class="row">

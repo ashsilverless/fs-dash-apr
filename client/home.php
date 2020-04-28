@@ -77,7 +77,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
             <div class="main-content__head">
                 <h1 class="heading heading__1">Daily Valuation Data</h1>
                 <p>Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
-                <div class="button button__raised button__toggle data-toggle">View Charts</div>
+                <div class="button button__raised data-toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.59 19.59"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,9.79A9.84,9.84,0,0,1,9.79,0a9.85,9.85,0,0,1,9.8,9.79,9.85,9.85,0,0,1-9.8,9.8A9.85,9.85,0,0,1,0,9.79Zm15.48,6.38L9.61,10.41a.7.7,0,0,1-.22-.56V1.28a8.53,8.53,0,1,0,6.09,14.89ZM17.1,5.38a8.53,8.53,0,0,0-6.67-4.09v7.9Zm-.89,10.05A8.54,8.54,0,0,0,17.58,6.3l-6.7,3.84Z"/></g></g></svg> View Charts</div>
 
             </div>
             <h2 class="heading heading__2"><?=$user_name;?></h2>

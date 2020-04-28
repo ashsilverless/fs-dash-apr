@@ -432,6 +432,18 @@ form.fund {
     }
 }
 
+.asset-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    grid-column-gap: 2rem;
+    &__chart {
+
+    }
+    &__table {
+
+    }
+}
+
 .themes-table {
     display: grid;
     &__head,
@@ -458,6 +470,9 @@ form.fund {
         }
         .heading, p, img {
             grid-row:1/3;
+        }
+        .heading {
+            color: $color_green;
         }
         img {
             max-width: 3rem;

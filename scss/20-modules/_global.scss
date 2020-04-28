@@ -22,6 +22,14 @@ section {
             fill:$color_green;
         }
     }
+    svg {
+    width: 1.25rem;
+    margin-right: 1rem;
+        path {
+            transition: fill .5s ease;
+            fill:#b8b8b8;
+        }
+    }
     &__raised {
         @include raisedUI
     }
@@ -34,8 +42,9 @@ section {
         height: 3rem;
         padding: 0;
         color: $color_blue;
-        svg {
+        > svg {
             transition: transform 1s ease;
+            margin-right: 0;
         }
         &.active svg{
             transform: rotate(180deg);
@@ -55,14 +64,6 @@ section {
         color: $color_grey_lightest;
         svg {
             width:1rem;
-        }
-    }
-    svg {
-    width: 1.25rem;
-    margin-right: 1rem;
-        path {
-            transition: fill .5s ease;
-            fill:#b8b8b8;
         }
     }
 }
