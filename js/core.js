@@ -11,11 +11,12 @@ $('.asset-wrapper__table .toggle').on('click', function() {
 })
 
 $('circle.donut-segment').on('click', function() {
-    $(this).toggleClass('selected');
+    $('circle.donut-segment.selected').removeClass('selected');
+    $(this).addClass('selected');
     $('.item.active, text.active').removeClass('active');
     var selectedId = '.' + $(this).attr('id');
     $(selectedId).toggleClass('active');
-    $('text " + "selectedId" + "').toggleClass('active');    
+    $('text' + selectedId).addClass('active');
 })
 
 $.fn.toggleText = function(t1, t2){

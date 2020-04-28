@@ -440,7 +440,11 @@ form.fund {
     &__chart {
         align-self: flex-start;
         svg {
+            overflow: visible;
             circle {
+                &.selected {
+                    stroke-width:11;
+                }
             }
             text {
                 transform: rotate(90deg);
