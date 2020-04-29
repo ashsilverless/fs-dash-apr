@@ -101,14 +101,84 @@ require_once('page-sections/header-elements.php');
                         </div>
 
                     </div>
-                    <p>Expires<br>
-					<input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="" size="6" style="width:90%" ></p>
+
+                    <div class="item">
+                        <label>Expires</label>
+                        <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="">
+                    </div>
                     <div></div>
                 </div><!--pers details-->
 
+<!--                <div class="client__pers-accounts">
+                    <h3 class="heading heading__2">Accounts</h3>
+                    <a href="#" class="addasset button button__raised button__inline">Add Account</a>
+                    <div class="recess-box">
+                    <div class="account-table">
+                        <div class="account-table__head">
+                            <label>Client Code</label>
+                            <label>ISIN Code</label>
+                            <label>Designator</label>
+                            <label>Type</label>
+                            <label>Display Name</label>
+                            <label>Delete</label>
+                        </div>
+                        <?php $pid = ''; foreach($products as $product) { ?>
+                        <div class="account-table__body">
+                            <p><?=(int)$product['fs_client_code'];?></p>
+                            <p><?=$product['fs_isin_code'];?></p>
+                            <p><?=$product['fs_designation'];?></p>
+                            <p><?=$product['fs_product_type'];?></p>
+                            <p><?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?></p>
+                            <input name="del<?=$product['id'];?>" type="checkbox" id="del<?=$product['id'];?>" value="1">
+                        </div><!--body-->
+			            <!--<?php $pid .= $product['id'].'|'; } ?>
+					<input name="product_ids" type="hidden" id="product_ids" value="<?=$pid;?>">
+                    </div>
+                </div>
+
+                <h3 class="heading heading__4">Add Accounts</h3>
+                <div class="add-account">
+                    <div class="add-account__existing">
+                        <h3 class="heading heading__5">Add Existing Account</h3>
+                        <label>ISIN Code</label>
+                        <select name="fs_isin_code" id="fs_isin_code">
+                            <option value="" selected="selected">Existing ISIN Code</option>
+                            <?php foreach($fs_isin_code as $code) { ?>
+                                <option value="<?=$code;?>"><?=$code;?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="add-account__new">
+                        <h3 class="heading heading__5">Add New Account</h3>
+
+                        <label>ISIN Code</label>
+                            <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" value=""></p>
+
+                        <label>Fund SEDOL</label>
+                            <input type="text" id="fs_fund_sedol" name="fs_fund_sedol" value=""></p>
+
+                        <label>Product Type</label>
+                            <select name="fs_product_type" id="fs_product_type">
+                            	<option value="ISA" selected="selected">ISA</option>
+                            	<option value="JISA">JISA</option>
+                            	<option value="PIA">PIA</option>
+                            	<option value="SIPP">SIPP</option>
+                            	<option value="Unwrapped">Unwrapped</option>
+                            </select>
+
+                        <label>Fund Name</label>
+                        	<input type="text" id="fs_fund_name" name="fs_fund_name" value="">
+
+                        <label>Designation</label>
+                        	<input type="text" id="fs_designation" name="fs_designation" value="">
+
+                    </div>
+                </div><!--add account-->
+
 <!--insert code from tim-->
 
-<p>ISIN Code<br>
+<!--<p>ISIN Code<br>
     <select name="fs_isin_code" id="fs_isin_code">
         <option value="" selected="selected">Existing ISIN Code</option>
         <?php foreach($fs_isin_code as $code) { ?>
@@ -198,7 +268,7 @@ require_once('page-sections/header-elements.php');
                             <label>Type</label>
                             <label>Display Name</label>
                         </div><!--head-->
-						<?php
+						<!--<?php
 						  // Connect and create the PDO object
 						  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
 						  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
@@ -218,14 +288,15 @@ require_once('page-sections/header-elements.php');
                                 <p><?=$row['fs_product_type'];?></p>
                                 <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
                             </div><!--body-->
-						  <?php }
+						  <!--<?php }
 						  $conn = null; // Disconnect
 						}?>
                     </div>
                     <?php  }?>
                     <?php }	?>
+
                 </div>
-                </div>
+                </div>-->
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
