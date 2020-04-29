@@ -1,10 +1,10 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 
+
 $user_type = array("1"=>"Admin", "2"=>"Super Admin", "999"=>"<i style='color:red;font-weight:bold;font-size:0.9em;'>! Temporary Block !</i>");
 
 
-//    Get the user details
 try {
   // Connect and create the PDO object
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
@@ -17,7 +17,7 @@ try {
 
   // Parse returned data
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      $data_array[$row['fs_isin_code']] = $row['fs_fund_sedol'];
+      $fs_isin_code[] = $row['fs_isin_code'];
   }
 
   $conn = null;        // Disconnect
@@ -27,6 +27,7 @@ try {
 catch(PDOException $e) {
   echo $e->getMessage();
 }
+
 ?>
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
@@ -100,8 +101,52 @@ require_once('page-sections/header-elements.php');
                         </div>
 
                     </div>
+                    <p>Expires<br>
+					<input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="" size="6" style="width:90%" ></p>
                     <div></div>
                 </div><!--pers details-->
+
+<!--insert code from tim-->
+
+<p>ISIN Code<br>
+    <select name="fs_isin_code" id="fs_isin_code">
+        <option value="" selected="selected">Existing ISIN Code</option>
+        <?php foreach($fs_isin_code as $code) { ?>
+            <option value="<?=$code;?>"><?=$code;?></option>
+        <?php } ?>
+    </select>
+
+    Or New : <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" style="width:50%" value=""></p>
+
+    <p>Fund Sedol<br>
+        <input type="text" id="fs_fund_sedol" name="fs_fund_sedol" style="width:90%" value=""></p>
+
+        <p>Product Type<br>
+            <select name="fs_product_type" id="fs_product_type">
+                <option value="ISA" selected="selected">ISA</option>
+                <option value="JISA">JISA</option>
+                <option value="PIA">PIA</option>
+                <option value="SIPP">SIPP</option>
+                <option value="Unwrapped">Unwrapped</option>
+            </select></p>
+
+            <p>Fund Name<br>
+                <input type="text" id="fs_fund_name" name="fs_fund_name" style="width:90%" value=""></p>
+
+                <p>Designation<br>
+					<input type="text" id="fs_designation" name="fs_designation" style="width:90%" value=""></p>
+
+
+                    <h5>Client Actions</h5>
+                    <input type="submit" class="btn btn-grey" value="Save Changes">
+
+		<div id="assetdetails" class=""></div>
+
+
+
+
+
+
                 <div class="client__pers-accounts">
                     <h3 class="heading heading__2">Accounts</h3>
                     <a href="#" class="addasset button button__raised button__inline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg> Add Account</a>
@@ -451,10 +496,9 @@ require_once('page-sections/header-elements.php');
 require_once('page-sections/footer-elements.php');
 require_once('modals/delete.php');
 require_once('modals/logout.php');
-require_once('modals/delete-cat.php');
 require_once(__ROOT__.'/global-scripts.php');?>
 
-    <script>
+<script>
       feather.replace()
     </script>
 
