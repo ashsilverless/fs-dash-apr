@@ -182,7 +182,6 @@ require_once('page-sections/header-elements.php');
 					<input name="product_ids" type="hidden" id="product_ids" value="<?=$pid;?>">
                     </div>
                 </div>
-
                 <h3 class="heading heading__4">Add Accounts</h3>
                 <div class="add-account">
                     <div class="add-account__existing">
@@ -222,80 +221,72 @@ require_once('page-sections/header-elements.php');
 
                     </div>
                 </div><!--add account-->
-
-                <!--/insert-->
-</div>
+                </div>
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
 
-<!--insert-->
-                <div class="client-account-wrapper">
+                    <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
 
-                <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
+                    	<?php for($b=0;$b<count($lnk_array);$b++){
+                             if($lnk_array[$b]!=''){  ?>
+                            <div class="client-account-wrapper">
+                                <div class="head">
+                                    <h3 class="heading heading__4">Linked Account Holder: <?=getUserName((int)$lnk_array[$b])?></h3>
+                            		<label>Remove Account</label>
+                                    <input name="dellink<?=(int)$lnk_array[$b];?>" type="checkbox" id="dellink<?=(int)$lnk_array[$b];?>" value="1">
+                                </div>
+                                <div class="recess-box">
+                                    <div class="account-table">
+                                        <div class="account-table__head">
+                                            <label>Client Code</label>
+                                            <label>ISIN Code</label>
+                                            <label>Designator</label>
+                                            <label>Type</label>
+                                            <label>Display Name</label>
+                                        </div><!--head-->
+                                        <?php // Connect and create the PDO object
+                                        $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+                                        $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-                	<?php for($b=0;$b<count($lnk_array);$b++){
-                         if($lnk_array[$b]!=''){  ?>
-                            <div class="head">
-                                <h3 class="heading heading__4">Linked Account Holder: <?=getUserName((int)$lnk_array[$b])?></h3>
-                        		<label>Remove Account</label>
-                                <input name="dellink<?=(int)$lnk_array[$b];?>" type="checkbox" id="dellink<?=(int)$lnk_array[$b];?>" value="1">
+                                        $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
+
+                                        $result = $conn->prepare($query);
+                                        $result->execute();
+
+                                        // Parse returned data
+                                        while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+
+                                        <div class="account-table__body">
+                                            <p><?=(int)$lnk_array[$b];?></p>
+                                            <p><?=$row['fs_isin_code'];?></p>
+                                            <p><?=$row['fs_designation'];?></p>
+                                            <p><?=$row['fs_product_type'];?></p>
+                                            <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
+                                        </div><!--body-->
+                        			  <?php }
+                        			  $conn = null;        // Disconnect
+                        			}?>
+                                </div><!--recess-->
                             </div>
+                        <?php  }?>
+                    	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$linked_accounts;?>">
+                    <?php } ?>
 
-                        <div class="recess-box">
-                            <div class="account-table">
-                                <div class="account-table__head">
-                                    <label>Client Code</label>
-                                    <label>ISIN Code</label>
-                                    <label>Designator</label>
-                                    <label>Type</label>
-                                    <label>Display Name</label>
-                                </div><!--head-->
-
-                            <?php // Connect and create the PDO object
-                            $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
-                            $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-
-                            $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
-
-                            $result = $conn->prepare($query);
-                            $result->execute();
-
-                            // Parse returned data
-                            while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
-
-                            <div class="account-table__body">
-                				<p><?=(int)$lnk_array[$b];?></p>
-                                <p><?=$row['fs_isin_code'];?></p>
-                                <p><?=$row['fs_designation'];?></p>
-                                <p><?=$row['fs_product_type'];?></p>
-                                <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
-                            </div><!--body-->
-                			  <?php }
-
-                			  $conn = null;        // Disconnect
-
-                			}?>
-                            </div>
-                        </div><!--recess-->
-                    <?php  }?>
-                	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$linked_accounts;?>">
-                <?php } ?>
-                <h4 class="heading heading__4">Add Linked Account</h4>
-                <div class="link-account">
-                    <label>Account</label>
-                    <select name="linked_account" id="linked_account">
-                        <option value="" selected="selected">Select Account to Link</option>
-                        <?php foreach($links as $link) { ?>
-                            <option value="<?=$link['fs_client_code']?>"><?=$link['fs_client_name']?></option>
-                          <?php } ?>
-                    </select>
-                </div>
+                    <h4 class="heading heading__4">Add Linked Account</h4>
+                    <div class="link-account">
+                        <label>Account</label>
+                        <select name="linked_account" id="linked_account">
+                            <option value="" selected="selected">Select Account to Link</option>
+                            <?php foreach($links as $link) { ?>
+                                <option value="<?=$link['fs_client_code']?>"><?=$link['fs_client_name']?></option>
+                              <?php } ?>
+                        </select>
+                    </div>
 
                 </div><!--client account wrapper-->
+                
+<!--old content DELETE when confirmed stable -->
 
-
-
-<!--/insert-->
                     <!--<a href="#" class="addasset button button__raised button__inline">Add Linked Account</a>
                     <div class="account-table">
                         <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
@@ -338,10 +329,10 @@ require_once('page-sections/header-elements.php');
                     <?php }	?>
                 </div>
             </div><!--content-->
+            </div><!--control-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
                 <input type="submit" class="button button__raised" value="Save Changes">
-
                 <div id="assetdetails" class="col-md-12 mt-5"></div>
             </div>
         </form>
@@ -349,8 +340,6 @@ require_once('page-sections/header-elements.php');
 </div>
 </div>
 </div>
-
-
 
     <?php
     require_once('page-sections/footer-elements.php');
@@ -398,8 +387,6 @@ require_once('page-sections/header-elements.php');
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-
-
 
     </script>
   </body>
