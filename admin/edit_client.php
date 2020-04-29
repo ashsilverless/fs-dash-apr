@@ -121,9 +121,10 @@ require_once('page-sections/header-elements.php');
                         <input type="text" id="client_email" name="client_email" value="<?=$email_address;?>">
                     </div>
                     <div class="item user-id">
-                        <label>User ID</label>
+                    <label>User ID</label>
                         <div class="">
                             <?=$fs_client_code;?>
+                            <input name="fs_client_code" type="hidden" id="fs_client_code" value="<?=$fs_client_code;?>">
                         </div>
                     </div>
                     <div class="item mb1">
@@ -284,7 +285,7 @@ require_once('page-sections/header-elements.php');
                     </div>
 
                 </div><!--client account wrapper-->
-                
+
 <!--old content DELETE when confirmed stable -->
 
                     <!--<a href="#" class="addasset button button__raised button__inline">Add Linked Account</a>

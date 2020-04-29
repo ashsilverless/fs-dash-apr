@@ -36,7 +36,7 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	$sql = "INSERT INTO `tbl_fsusers` (`fs_client_code`, `user_type`, `user_prefix`, `first_name`, `last_name`, `user_name`, `password`, `email_address`, `telephone`, `strategy`, `agent_level`, `destruct_date`, `googlecode`, `fs_client_desc`,) VALUES ('$fs_client_code', 'user', '$user_prefix', '$first_name', '$last_name', '$user_name', '$password', '$client_email', '$telephone', '$strategy', '1', '$destruct_date', '$secretish', '$fs_client_desc')";
+	$sql = "INSERT INTO `tbl_fsusers` (`fs_client_code`, `user_type`, `user_prefix`, `first_name`, `last_name`, `user_name`, `password`, `email_address`, `telephone`, `strategy`, `agent_level`, `destruct_date`, `googlecode`, `fs_client_desc`) VALUES ('$fs_client_code', 'user', '$user_prefix', '$first_name', '$last_name', '$user_name', '$password', '$client_email', '$telephone', '$strategy', '1', '$destruct_date', '$secretish', '$fs_client_desc')";
 
     $conn->exec($sql);
 
