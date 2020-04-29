@@ -329,6 +329,12 @@ form.fund {
             color: #b7b7b7;
         }
     }
+    .editable-click,
+    a.editable-click,
+    a.editable-click:hover {
+        text-decoration: none;
+        border-bottom: none;
+    }
 }
 
 .price span {

@@ -217,7 +217,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 	<?php for($a=0;$a<count($codes);$a++){ ?>
 
 
-		$('#pricedate<?=$codes[$a]?>').datepicker({  format: "dd mm yy" , todayHighlight: true });
+		$('#pricedate<?=$codes[$a]?>').datepicker({  format: "yyyy-mm-dd" , todayHighlight: true });
 
 		$("#form<?=$codes[$a]?>").submit(function(e) {
 			e.preventDefault(); // avoid to execute the actual submit of the form.

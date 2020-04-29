@@ -136,6 +136,6 @@ function draw_calendar($dt,$month,$year,$isin_code){
 		$.fn.editable.defaults.mode = 'inline';
 		$('<?=substr($priceID, 0, -1);?>').editable({emptytext: '0',tpl: "<input type='text' style='width: 100px;font-size:1em;'>"});
 		$('.emptyprice').editable({emptytext: '0',tpl: "<input type='text' style='width: 100px;font-size:1em;'>",'setValue': null});
-		
+
 	});
 </script>
