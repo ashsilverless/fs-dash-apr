@@ -1,5 +1,7 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
+require_once '../googleLib/GoogleAuthenticator.php';
+$ga = new GoogleAuthenticator();
 
 $client_id = $_GET['id'];
 
@@ -18,16 +20,20 @@ try {
 	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
 		$fs_client_code = $row['fs_client_code'];
-		$user_name = $row['user_name'];
+		$user_prefix = $row['user_prefix'];
+		$first_name = $row['first_name'];
+		$last_name = $row['last_name'];
+		$destruct_date = $row['destruct_date'];
 		$email_address = $row['email_address'];
 		$telephone = $row['telephone'];
 		$strategy = $row['strategy'];
 		$linked_accounts = $row['linked_accounts'];
 		$desc = $row['fs_client_desc'];
+		$googlecode = $row['googlecode'];
 	}
 
 
-	 $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$fs_client_code' AND bl_live = 1;";
+  $query = "SELECT * FROM `tbl_fs_client_products` where CAST(fs_client_code AS UNSIGNED) = '$fs_client_code' AND bl_live = 1;";
 
   $result = $conn->prepare($query);
   $result->execute();
@@ -37,6 +43,33 @@ try {
       $products[] = $row;
   }
 
+
+
+
+ //    List of Client Products
+  $query = "SELECT * FROM `tbl_fs_client_products` where bl_live = 1 GROUP BY fs_client_code ASC ;";
+
+  $result = $conn->prepare($query);
+  $result->execute();
+
+  // Parse returned data
+  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      $links[] = $row;
+  }
+
+
+
+ //Get the ISIN Code list
+	 $query = "SELECT * FROM `tbl_fs_client_products` where bl_live = 1 GROUP BY fs_isin_code ASC ;";
+
+  $result = $conn->prepare($query);
+  $result->execute();
+
+  // Parse returned data
+  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      $fs_isin_code[] = $row['fs_isin_code'];
+  }
+
   $conn = null;        // Disconnect
 
 }
@@ -44,6 +77,8 @@ try {
 catch(PDOException $e) {
   echo $e->getMessage();
 }
+
+$qrCodeUrl 	= $ga->getQRCodeGoogleUrl($email_address, $googlecode,'www.featherstone.co.uk');
 
 ?>
 <?php
@@ -62,10 +97,10 @@ require_once('page-sections/header-elements.php');
                         <label>Prefix</label>
                         <div class="select-wrapper">
                             <select name="user_prefix" id="user_prefix" class="select-css">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Dr">Dr</option>
+                                <option value="Mr" <?php if($user_prefix=='Mr'){?>  selected="selected"<?php }?>>Mr</option>
+          					  <option value="Mrs" <?php if($user_prefix=='Mrs'){?>  selected="selected"<?php }?>>Mrs</option>
+          					  <option value="Miss" <?php if($user_prefix=='Miss'){?>  selected="selected"<?php }?>>Miss</option>
+          					  <option value="Dr" <?php if($user_prefix=='Dr'){?>  selected="selected"<?php }?>>Dr</option>
                             </select>
                         </div>
                     </div>
@@ -87,15 +122,17 @@ require_once('page-sections/header-elements.php');
                     </div>
                     <div class="item user-id">
                         <label>User ID</label>
-                        <input type="text" id="fs_client_code" name="fs_client_code" value="<?=$fs_client_code;?>">
+                        <div class="">
+                            <?=$fs_client_code;?>
+                        </div>
                     </div>
-                    <div class="item">
+                    <div class="item mb1">
                         <label>Strategy</label>
                             <div class="select-wrapper">
                             <select name="strategy" id="strategy" class="select-css">
-                              <option value="Sensible" <?php if(strtolower ($strategy)=='sensible'){?>selected = 'selected' <?php }?>>Sensible</option>
-                              <option value="Steady" <?php if(strtolower ($strategy)=='steady'){?>selected = 'selected' <?php }?>>Steady</option>
-                              <option value="Serious" <?php if(strtolower ($strategy)=='serious'){?>selected = 'selected' <?php }?>>Serious</option>
+                                <option value="Sensible" <?php if(strtolower ($strategy)=='sensible'){?>selected = 'selected' <?php }?>>Sensible</option>
+  					  <option value="Steady" <?php if(strtolower ($strategy)=='steady'){?>selected = 'selected' <?php }?>>Steady</option>
+  					  <option value="Serious" <?php if(strtolower ($strategy)=='serious'){?>selected = 'selected' <?php }?>>Serious</option>
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
@@ -104,13 +141,20 @@ require_once('page-sections/header-elements.php');
                         <label>Client Type</label>
                         <div class="select-wrapper">
                             <select name="fs_client_desc" id="fs_client_desc" class="select-css">
-                              <option value="Private Client" <?php if(strtolower ($desc)=='private client'){?>selected = 'selected' <?php }?>>Private</option>
-                              <option value="Corporate Client" <?php if(strtolower ($desc)=='corporate client'){?>selected = 'selected' <?php }?>>Corporate</option>
+                                <option value="Private Client" <?php if(strtolower ($desc)=='private client'){?>selected = 'selected' <?php }?>>Private</option>
+  					  <option value="Corporate Client" <?php if(strtolower ($desc)=='corporate client'){?>selected = 'selected' <?php }?>>Corporate</option>
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
                     </div>
-                    <div></div>
+                    <div class="item">
+                        <label>Expires</label>
+                        <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="<?=$destruct_date;?>">
+                    </div>
+                    <div class="item">
+                        <label>QR Code</label>
+                        <img src='<?php echo $qrCodeUrl; ?>'/>
+                    </div>
                 </div><!--pers details-->
                 <div class="client__pers-accounts">
                     <h3 class="heading heading__2">Accounts</h3>
@@ -123,32 +167,136 @@ require_once('page-sections/header-elements.php');
                             <label>Designator</label>
                             <label>Type</label>
                             <label>Display Name</label>
+                            <label>Delete</label>
                         </div>
-                        <?php foreach($products as $product) { ?>
+                        <?php $pid = ''; foreach($products as $product) { ?>
                         <div class="account-table__body">
-                            <input type="text" id="fs_client_code<?=$product['id'];?>" name="fs_client_code<?=$product['id'];?>" value="<?=$product['fs_client_code'];?>" readonly>
-
-                            <input type="text" id="fs_isin_code<?=$product['id'];?>" name="fs_isin_code<?=$product['id'];?>" value="<?=$product['fs_isin_code'];?>" readonly>
-
-                            <input type="text" id="designator<?=$product['id'];?>" name="designator<?=$product['id'];?>" value="<?=$product['fs_designation'];?>" readonly>
-
-                            <select name="product_type<?=$product['id'];?>" id="product_type<?=$product['id'];?>">
-                                <option value="ISA" <?php if(strtolower ($product['fs_product_type'])=='isa'){?>selected = 'selected' <?php }?>>ISA</option>
-                                <option value="JISA" <?php if(strtolower ($product['fs_product_type'])=='jisa'){?>selected = 'selected' <?php }?>>JISA</option>
-                                <option value="PIA" <?php if(strtolower ($product['fs_product_type'])=='pia'){?>selected = 'selected' <?php }?>>PIA</option>
-                                <option value="SIPP" <?php if(strtolower ($product['fs_product_type'])=='sipp'){?>selected = 'selected' <?php }?>>SIPP</option>
-                                <option value="Unwrapped" <?php if(strtolower ($product['fs_product_type'])=='unwrapped'){?>selected = 'selected' <?php }?>>Unwrapped</option>
-                            </select>
-
-                            <input type="text" id="display_name<?=$product['id'];?>" name="display_name<?=$product['id'];?>" value="<?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?>" readonly>
-
-                        </div>
-                         <?php } ?>
+                            <p><?=(int)$product['fs_client_code'];?></p>
+                            <p><?=$product['fs_isin_code'];?></p>
+                            <p><?=$product['fs_designation'];?></p>
+                            <p><?=$product['fs_product_type'];?></p>
+                            <p><?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?></p>
+                            <input name="del<?=$product['id'];?>" type="checkbox" id="del<?=$product['id'];?>" value="1">
+                        </div><!--body-->
+			            <?php $pid .= $product['id'].'|'; } ?>
+					<input name="product_ids" type="hidden" id="product_ids" value="<?=$pid;?>">
                     </div>
                 </div>
+
+                <h3 class="heading heading__4">Add Accounts</h3>
+                <div class="add-account">
+                    <div class="add-account__existing">
+                        <h3 class="heading heading__5">Add Existing Account</h3>
+                        <label>ISIN Code</label>
+                        <select name="fs_isin_code" id="fs_isin_code">
+                            <option value="" selected="selected">Existing ISIN Code</option>
+                            <?php foreach($fs_isin_code as $code) { ?>
+                                <option value="<?=$code;?>"><?=$code;?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="add-account__new">
+                        <h3 class="heading heading__5">Add New Account</h3>
+
+                        <label>ISIN Code</label>
+                            <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" value=""></p>
+
+                        <label>Fund SEDOL</label>
+                            <input type="text" id="fs_fund_sedol" name="fs_fund_sedol" value=""></p>
+
+                        <label>Product Type</label>
+                            <select name="fs_product_type" id="fs_product_type">
+                            	<option value="ISA" selected="selected">ISA</option>
+                            	<option value="JISA">JISA</option>
+                            	<option value="PIA">PIA</option>
+                            	<option value="SIPP">SIPP</option>
+                            	<option value="Unwrapped">Unwrapped</option>
+                            </select>
+
+                        <label>Fund Name</label>
+                        	<input type="text" id="fs_fund_name" name="fs_fund_name" value="">
+
+                        <label>Designation</label>
+                        	<input type="text" id="fs_designation" name="fs_designation" value="">
+
+                    </div>
+                </div><!--add account-->
+
+                <!--/insert-->
+</div>
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
-                    <a href="#" class="addasset button button__raised button__inline">Add Linked Account</a>
+
+<!--insert-->
+                <div class="client-account-wrapper">
+
+                <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
+
+                	<?php for($b=0;$b<count($lnk_array);$b++){
+                         if($lnk_array[$b]!=''){  ?>
+                            <div class="head">
+                                <h3 class="heading heading__4">Linked Account Holder: <?=getUserName((int)$lnk_array[$b])?></h3>
+                        		<label>Remove Account</label>
+                                <input name="dellink<?=(int)$lnk_array[$b];?>" type="checkbox" id="dellink<?=(int)$lnk_array[$b];?>" value="1">
+                            </div>
+
+                        <div class="recess-box">
+                            <div class="account-table">
+                                <div class="account-table__head">
+                                    <label>Client Code</label>
+                                    <label>ISIN Code</label>
+                                    <label>Designator</label>
+                                    <label>Type</label>
+                                    <label>Display Name</label>
+                                </div><!--head-->
+
+                            <?php // Connect and create the PDO object
+                            $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+                            $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+
+                            $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
+
+                            $result = $conn->prepare($query);
+                            $result->execute();
+
+                            // Parse returned data
+                            while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+
+                            <div class="account-table__body">
+                				<p><?=(int)$lnk_array[$b];?></p>
+                                <p><?=$row['fs_isin_code'];?></p>
+                                <p><?=$row['fs_designation'];?></p>
+                                <p><?=$row['fs_product_type'];?></p>
+                                <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
+                            </div><!--body-->
+                			  <?php }
+
+                			  $conn = null;        // Disconnect
+
+                			}?>
+                            </div>
+                        </div><!--recess-->
+                    <?php  }?>
+                	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$linked_accounts;?>">
+                <?php } ?>
+                <h4 class="heading heading__4">Add Linked Account</h4>
+                <div class="link-account">
+                    <label>Account</label>
+                    <select name="linked_account" id="linked_account">
+                        <option value="" selected="selected">Select Account to Link</option>
+                        <?php foreach($links as $link) { ?>
+                            <option value="<?=$link['fs_client_code']?>"><?=$link['fs_client_name']?></option>
+                          <?php } ?>
+                    </select>
+                </div>
+
+                </div><!--client account wrapper-->
+
+
+
+<!--/insert-->
+                    <!--<a href="#" class="addasset button button__raised button__inline">Add Linked Account</a>
                     <div class="account-table">
                         <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
                         <?php for($b=0;$b<count($lnk_array);$b++){
@@ -162,7 +310,7 @@ require_once('page-sections/header-elements.php');
                             <label>Type</label>
                             <label>Display Name</label>
                         </div><!--head-->
-						<?php
+						<!--<?php
 						  // Connect and create the PDO object
 						  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
 						  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
@@ -175,25 +323,26 @@ require_once('page-sections/header-elements.php');
 						  // Parse returned data
 						  while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                             <!--For each row, fetch this-->
-                            <div class="account-table__body">
+                            <!--<div class="account-table__body">
     							<p><?=$lnk_array[$b];?></p>
                                 <p><?=$row['fs_isin_code'];?></p>
                                 <p><?=$row['fs_designation'];?></p>
                                 <p><?=$row['fs_product_type'];?></p>
                                 <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
                             </div><!--body-->
-						  <?php }
+						  <!--<?php }
 						  $conn = null; // Disconnect
 						}?>
                     </div>
                     <?php  }?>
                     <?php }	?>
                 </div>
-                </div>
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
                 <input type="submit" class="button button__raised" value="Save Changes">
+
+                <div id="assetdetails" class="col-md-12 mt-5"></div>
             </div>
         </form>
     </div>
