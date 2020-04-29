@@ -89,7 +89,7 @@ function draw_calendar($dt,$month,$year,$isin_code){
 
 				  $cur_date == $today ? $calendar.= '<td class="calendar-day-np today"  valign="top" align="center"><div class="day-number f-left"><span>'.$list_day.'</span></div><div id="clear" style="height:1px;clear:both;"></div>' : $calendar.= '<td class="calendar-day-nd" valign="top" align="center" ><div class="day-number f-left"><span>'.$list_day.'</span></div><div id="clear" style="height:1px;clear:both;"></div>';
 
-                  $calendar.= '<p class="price"><span class="empty-price">--.--</span></p>';
+                  $calendar.= "<p class='price'><a href='#' data-inputclass='input_num' data-type='text' data-pk='".$cur_date."' data-url='addnewfundprice.php?ic=".$isin_code."' class='emptyprice editme'>--.--</a></p>";
 
                   $nd_day_checks .= $list_day."|";
               }
@@ -135,5 +135,7 @@ function draw_calendar($dt,$month,$year,$isin_code){
 	$(document).ready(function() {
 		$.fn.editable.defaults.mode = 'inline';
 		$('<?=substr($priceID, 0, -1);?>').editable({emptytext: '0',tpl: "<input type='text' style='width: 100px;font-size:1em;'>"});
+		$('.emptyprice').editable({emptytext: '0',tpl: "<input type='text' style='width: 100px;font-size:1em;'>",'setValue': null});
+		
 	});
 </script>

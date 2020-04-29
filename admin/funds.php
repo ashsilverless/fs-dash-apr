@@ -183,7 +183,10 @@ require_once('page-sections/header-elements.php');
 require_once('modals/delete.php');
 require_once('modals/logout.php');
 require_once(__ROOT__.'/global-scripts.php');?>
-
+<!-- Bootstrap Edit in Place --> 
+	<link href="be/css/bootstrap-editable.css" rel="stylesheet" type="text/css">
+	<script src="be/js/bootstrap-editable.js"></script>
+	<script src="be/js/moment.min.js"></script>
     <script>
 
 		$(".toggler").click(function(e){
