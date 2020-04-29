@@ -122,9 +122,7 @@ require_once('page-sections/header-elements.php');
             </div>
         </div>
         <div>
-            <a href="#" class="button button__raised">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.82 21.82"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.71,19.39a.71.71,0,0,0-.54-.22H4.91c-1.57,0-2.26-.69-2.26-2.26V14.65a.67.67,0,0,0-.23-.53L.83,12.5a2,2,0,0,1,0-3.19l1.59-1.6a.72.72,0,0,0,.23-.54V4.92c0-1.59.69-2.27,2.26-2.27H7.17a.73.73,0,0,0,.54-.22L9.31.83a1.94,1.94,0,0,1,3.19,0l1.61,1.6a.71.71,0,0,0,.54.22h2.26c1.57,0,2.26.69,2.26,2.27V7.17a.72.72,0,0,0,.23.54L21,9.31a2,2,0,0,1,0,3.19L19.4,14.12a.67.67,0,0,0-.23.53v2.26c0,1.57-.69,2.26-2.26,2.26H14.65a.71.71,0,0,0-.54.22L12.5,21a1.94,1.94,0,0,1-3.18,0Zm4,.76,1.87-1.88a.89.89,0,0,1,.7-.29h2.67c.89,0,1.07-.17,1.07-1.07V14.23a1,1,0,0,1,.28-.69l1.89-1.87c.63-.64.63-.87,0-1.52L18.26,8.28a.94.94,0,0,1-.28-.7V4.92c0-.9-.18-1.08-1.07-1.08H14.24a.89.89,0,0,1-.7-.29L11.67,1.67C11,1,10.79,1,10.15,1.67L8.28,3.55a.89.89,0,0,1-.7.29H4.91C4,3.84,3.84,4,3.84,4.92V7.58a.94.94,0,0,1-.28.7L1.67,10.15c-.63.65-.63.88,0,1.52l1.89,1.87a1,1,0,0,1,.28.69v2.68c0,.9.17,1.07,1.07,1.07H7.58a.89.89,0,0,1,.7.29l1.87,1.88C10.79,20.79,11,20.79,11.67,20.15Zm-2.8-4.77L5.68,11.76a.55.55,0,0,1-.18-.41.64.64,0,0,1,1.11-.41l2.72,3,5.12-7.25A.63.63,0,0,1,15.61,7a.77.77,0,0,1-.14.4l-5.63,7.9a.6.6,0,0,1-.5.23A.64.64,0,0,1,8.87,15.38Z"/></g></g></svg>
-                Save</a>
+            <input type="submit" style="font-size:0.8em" class="btn btn-admin" value="Add Price">
         </div>
     </div>
     <div class="fund-table-wrapper">
@@ -183,7 +181,7 @@ require_once('page-sections/header-elements.php');
 require_once('modals/delete.php');
 require_once('modals/logout.php');
 require_once(__ROOT__.'/global-scripts.php');?>
-<!-- Bootstrap Edit in Place --> 
+<!-- Bootstrap Edit in Place -->
 	<link href="be/css/bootstrap-editable.css" rel="stylesheet" type="text/css">
 	<script src="be/js/bootstrap-editable.js"></script>
 	<script src="be/js/moment.min.js"></script>

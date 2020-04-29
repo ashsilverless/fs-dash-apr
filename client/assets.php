@@ -73,6 +73,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
               $thisAsset = $asset['fs_growth_steady'];
               $assetBalance = 100 - $thisAsset;
             ?>
+
                <circle id="asset<?=$asset['id'];?>" class="donut-segment <?=$asset['id'];?> <?=$asset['fs_asset_name'];?>" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="<?= $asset_color;?>" stroke-width="10" stroke-dasharray="<?=$thisAsset;?> <?=$assetBalance;?>" stroke-dashoffset="-<?=$assetTotal;?>"></circle>
                <text x="22" y="22" text-anchor="middle" alignment-baseline="middle" class="asset<?=$asset['id'];?>"><?=$thisAsset;?>%</text>
                <?php $assetTotal = $thisAsset += $assetTotal;?>
