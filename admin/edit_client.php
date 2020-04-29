@@ -222,7 +222,7 @@ require_once('page-sections/header-elements.php');
 
                     </div>
                 </div><!--add account-->
-                </div>
+            </div>
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
 
@@ -264,11 +264,11 @@ require_once('page-sections/header-elements.php');
                                             <p><?=$row['fs_product_type'];?></p>
                                             <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
                                         </div><!--body-->
-                        			  <?php }
-                        			  $conn = null;        // Disconnect
-                        			}?>
+                                        <?php } $conn = null;        // Disconnect
+                                        }?>
+                                    </div>
                                 </div><!--recess-->
-                            </div>
+                            
                         <?php  }?>
                     	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$lnkList;?>">
                     <?php } ?>
@@ -285,62 +285,13 @@ require_once('page-sections/header-elements.php');
                     </div>
 
                 </div><!--client account wrapper-->
-
-<!--old content DELETE when confirmed stable -->
-
-                    <!--<a href="#" class="addasset button button__raised button__inline">Add Linked Account</a>
-                    <div class="account-table">
-                        <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
-                        <?php for($b=0;$b<count($lnk_array);$b++){
-                             if($lnk_array[$b]!=''){  ?>
-                        <h3 class="heading heading__4">Linked Account Holder: Name Name <?=getUserName($lnk_array[$b])?></h3>
-                        <div class="recess-box">
-                        <div class="account-table__head">
-                            <label>Client Code</label>
-                            <label>ISIN Code</label>
-                            <label>Designator</label>
-                            <label>Type</label>
-                            <label>Display Name</label>
-                        </div><!--head-->
-						<!--<?php
-						  // Connect and create the PDO object
-						  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
-						  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-
-						  $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
-
-						  $result = $conn->prepare($query);
-						  $result->execute();
-
-						  // Parse returned data
-						  while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <!--For each row, fetch this-->
-                            <!--<div class="account-table__body">
-    							<p><?=$lnk_array[$b];?></p>
-                                <p><?=$row['fs_isin_code'];?></p>
-                                <p><?=$row['fs_designation'];?></p>
-                                <p><?=$row['fs_product_type'];?></p>
-                                <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
-                            </div><!--body-->
-						  <!--<?php }
-						  $conn = null; // Disconnect
-						}?>
-                    </div>
-                    <?php  }?>
-                    <?php }	?>
-                </div>
-            </div><!--content-->
-            </div><!--control-->
+            </div>
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
                 <input type="submit" class="button button__raised" value="Save Changes">
                 <div id="assetdetails" class="col-md-12 mt-5"></div>
             </div>
         </form>
-    </div>
-</div>
-</div>
-</div>
 
     <?php
     require_once('page-sections/footer-elements.php');
