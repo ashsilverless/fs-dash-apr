@@ -121,10 +121,10 @@ require_once('page-sections/header-elements.php');
                         <input type="text" id="client_email" name="client_email" value="<?=$email_address;?>">
                     </div>
                     <div class="item user-id">
-                    <label>User ID</label>
+                        <label>User ID</label>
                         <div class="">
                             <?=$fs_client_code;?>
-                            <input name="fs_client_code" type="hidden" id="fs_client_code" value="<?=$fs_client_code;?>">
+							<input name="fs_client_code" type="hidden" id="fs_client_code" value="<?=$fs_client_code;?>">
                         </div>
                     </div>
                     <div class="item mb1">
@@ -226,10 +226,10 @@ require_once('page-sections/header-elements.php');
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
 
-                    <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts);?>
+                    <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts); $lnkList = '';?>
 
                     	<?php for($b=0;$b<count($lnk_array);$b++){
-                             if($lnk_array[$b]!=''){  ?>
+                             if($lnk_array[$b]!=''){  $lnkList .= $lnk_array[$b].'|';?>
                             <div class="client-account-wrapper">
                                 <div class="head">
                                     <h3 class="heading heading__4">Linked Account Holder: <?=getUserName((int)$lnk_array[$b])?></h3>
@@ -270,7 +270,7 @@ require_once('page-sections/header-elements.php');
                                 </div><!--recess-->
                             </div>
                         <?php  }?>
-                    	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$linked_accounts;?>">
+                    	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$lnkList;?>">
                     <?php } ?>
 
                     <h4 class="heading heading__4">Add Linked Account</h4>

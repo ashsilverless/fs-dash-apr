@@ -343,6 +343,10 @@ form.fund {
             text-align: center;
             padding-right: .75rem !important;
             margin: 5px;
+            &:focus {
+                @include recessUI;
+                border-radius: 10px;
+            }
         }
         .editable-clear-x {
             display: none;
