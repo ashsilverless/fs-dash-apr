@@ -2,7 +2,7 @@
 session_start();
 
 if(!$_SESSION['loggedin']){
-    header("location:../index.php");
+    header("location:back-office.php");
 }
 
 if($_GET['err']!=""){
@@ -12,13 +12,22 @@ if($_GET['err']!=""){
 
 	##################      LIVE SERVER     ###########################
 
-	$host = "46.32.229.204";
+	$host = "localhost";
 	$user = "FeatherStoneDashboard";
 	$pass = "FSD>Login-1";
 	$db	 = "featherstone_db";
 	$charset = 'utf8mb4';
 
 	##################     / LIVE SERVER     ##########################
+
+
+function validateDate($date, $format = 'Y-m-d')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+    return $d && $d->format($format) === $date;
+}
+
 
 function formatBytes($size, $precision = 2)
 {
@@ -44,7 +53,30 @@ function date_range($first, $last, $step = '+1 day', $output_format = 'Y-m-d' ) 
 }
 
 
+function getUserName($id){
 
+	global $host,$user, $pass, $db, $charset;
+	try {
+	  // Connect and create the PDO object
+	  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+	  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+
+	  $result = $conn->prepare("SELECT *  FROM tbl_fsusers where fs_client_code LIKE '$id';");
+	  $result->execute();
+
+	  // Parse returned data
+	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		  $return = $row['user_name'];
+	  }
+
+	  $conn = null;        // Disconnect
+	  return $return;
+
+	}
+	catch(PDOException $e) {
+	  echo $e->getMessage();
+	}
+}
 
 function getTable($tbl,$orderFld = "id",$status = 'bl_live = 1'){
 	global $host,$user, $pass, $db, $charset;
@@ -197,7 +229,9 @@ function getFields($tbl,$srch,$param,$condition = '='){
 	}
 }
 
+
 function getField($tbl,$fld,$srch,$param){
+
 	global $host,$user, $pass, $db, $charset;
 	try {
 	  // Connect and create the PDO object
@@ -298,6 +332,12 @@ function convertToHoursMins($time, $format = '%02d:%02d') {
 
 function debug($string){
 	echo ('<script> console.log("'.$string.'");</script>');
+}
+
+function showForm(){
+	foreach($_POST as $key => $data) {
+		echo ( $key." = ".$data ."<br>");
+}
 }
 
 function chk($what,$fld,$cs){
