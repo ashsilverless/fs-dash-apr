@@ -90,7 +90,9 @@ require_once('page-sections/header-elements.php');
 <div class="container">
     <div class="border-box main-content">
         <h1 class="heading heading__2">Client Details</h1>
+
 		<form action="editclient.php?id=<?=$client_id;?>" method="post" id="editclient" name="editclient" class="asset-form">
+
             <div class="content client">
                 <div class="client__pers-details">
                     <div class="item prefix mb1">
@@ -102,7 +104,7 @@ require_once('page-sections/header-elements.php');
           					  <option value="Miss" <?php if($user_prefix=='Miss'){?>  selected="selected"<?php }?>>Miss</option>
           					  <option value="Dr" <?php if($user_prefix=='Dr'){?>  selected="selected"<?php }?>>Dr</option>
                             </select>
-                        </div>
+                        </div><!--sel-->
                     </div>
                     <div class="item first-name">
                         <label>First Name</label>
@@ -122,10 +124,7 @@ require_once('page-sections/header-elements.php');
                     </div>
                     <div class="item user-id">
                         <label>User ID</label>
-                        <div class="">
-                            <?=$fs_client_code;?>
-							<input name="fs_client_code" type="hidden" id="fs_client_code" value="<?=$fs_client_code;?>">
-                        </div>
+							<input name="fs_client_code" id="fs_client_code" value="<?=$fs_client_code;?>">
                     </div>
                     <div class="item mb1">
                         <label>Strategy</label>
@@ -152,77 +151,103 @@ require_once('page-sections/header-elements.php');
                         <label>Expires</label>
                         <input name="destruct_date" type="text" id="destruct_date" title="destruct_date" value="<?=$destruct_date;?>">
                     </div>
-                    <div class="item">
+                    <div class="item qr">
                         <label>QR Code</label>
                         <img src='<?php echo $qrCodeUrl; ?>'/>
                     </div>
                 </div><!--pers details-->
+
                 <div class="client__pers-accounts">
+                    <!--call accounts-->
                     <h3 class="heading heading__2">Accounts</h3>
-                    <a href="#" class="addasset button button__raised button__inline">Add Account</a>
                     <div class="recess-box">
-                    <div class="account-table">
-                        <div class="account-table__head">
-                            <label>Client Code</label>
+                        <div class="account-table">
+                            <div class="account-table__head">
+                                <label>Client Code</label>
+                                <label>ISIN Code</label>
+                                <label>Designator</label>
+                                <label>Type</label>
+                                <label>Display Name</label>
+                                <label>Delete</label>
+                            </div><!--head-->
+                            <?php $pid = ''; foreach($products as $product) { ?>
+                            <div class="account-table__body">
+                                <p><?=(int)$product['fs_client_code'];?></p>
+                                <p><?=$product['fs_isin_code'];?></p>
+                                <p><?=$product['fs_designation'];?></p>
+                                <p><?=$product['fs_product_type'];?></p>
+                                <p><?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?></p>
+                                <div class="radio-item">
+                                    <input class="star-marker" name="del<?=$product['id'];?>" type="checkbox" id="del<?=$product['id'];?>" value="1">
+                                    <?php define('__ROOT__', dirname(dirname(__FILE__)));
+                                    include(__ROOT__.'/admin/images/star.php'); ?>
+                                </div><!--radio-->
+
+
+
+
+
+                            </div><!--body-->
+    			            <?php $pid .= $product['id'].'|'; } ?>
+    					    <input name="product_ids" type="hidden" id="product_ids" value="<?=$pid;?>">
+                        </div><!--account table-->
+                    </div>
+                    <div class="commit-changes">
+                        <input type="submit" class="button button__raised" value="Save Changes">
+                    </div>
+
+                    <!--add accounts-->
+                    <h3 class="heading heading__4">Add Accounts</h3>
+                    <div class="add-account">
+                        <div class="add-account__existing">
+                            <h3 class="heading heading__5">Add Existing Account</h3>
                             <label>ISIN Code</label>
-                            <label>Designator</label>
-                            <label>Type</label>
-                            <label>Display Name</label>
-                            <label>Delete</label>
-                        </div>
-                        <?php $pid = ''; foreach($products as $product) { ?>
-                        <div class="account-table__body">
-                            <p><?=(int)$product['fs_client_code'];?></p>
-                            <p><?=$product['fs_isin_code'];?></p>
-                            <p><?=$product['fs_designation'];?></p>
-                            <p><?=$product['fs_product_type'];?></p>
-                            <p><?=$product['fs_client_name'] . ' ' . $product['fs_product_type'];?></p>
-                            <input name="del<?=$product['id'];?>" type="checkbox" id="del<?=$product['id'];?>" value="1">
-                        </div><!--body-->
-			            <?php $pid .= $product['id'].'|'; } ?>
-					<input name="product_ids" type="hidden" id="product_ids" value="<?=$pid;?>">
-                    </div>
-                </div>
-                <h3 class="heading heading__4">Add Accounts</h3>
-                <div class="add-account">
-                    <div class="add-account__existing">
-                        <h3 class="heading heading__5">Add Existing Account</h3>
-                        <label>ISIN Code</label>
-                        <select name="fs_isin_code" id="fs_isin_code">
-                            <option value="" selected="selected">Existing ISIN Code</option>
-                            <?php foreach($fs_isin_code as $code) { ?>
-                                <option value="<?=$code;?>"><?=$code;?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-
-                    <div class="add-account__new">
-                        <h3 class="heading heading__5">Add New Account</h3>
-
-                        <label>ISIN Code</label>
-                            <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" value=""></p>
-
-                        <label>Fund SEDOL</label>
-                            <input type="text" id="fs_fund_sedol" name="fs_fund_sedol" value=""></p>
-
-                        <label>Product Type</label>
-                            <select name="fs_product_type" id="fs_product_type">
-                            	<option value="ISA" selected="selected">ISA</option>
-                            	<option value="JISA">JISA</option>
-                            	<option value="PIA">PIA</option>
-                            	<option value="SIPP">SIPP</option>
-                            	<option value="Unwrapped">Unwrapped</option>
+                            <div class="select-wrapper">
+                            <select name="fs_isin_code" id="fs_isin_code" class="select-css mb1">
+                                <option value="" selected="selected">Existing ISIN Code</option>
+                                <?php foreach($fs_isin_code as $code) { ?>
+                                    <option value="<?=$code;?>"><?=$code;?></option>
+                                <?php } ?>
                             </select>
+                            </div>
+                            <input type="submit" class="button button__raised" value="Save Changes">
+                        </div>
+                        <div class="add-account__new">
+                            <h3 class="heading heading__5">Add New Account</h3>
+                            <div class="item name">
+                                <label>Fund Name</label>
+                                <input type="text" id="fs_fund_name" name="fs_fund_name" value="">
+                            </div>
+                            <div class="item">
+                                <label>ISIN Code</label>
+                                <input type="text" id="new_fs_isin_code" name="new_fs_isin_code" value="">
+                            </div>
+                            <div class="item">
+                                <label>Fund SEDOL</label>
+                                <input type="text" id="fs_fund_sedol" name="fs_fund_sedol" value="">
+                            </div>
+                            <div class="item">
+                                <label>Product Type</label>
+                                <div class="select-wrapper">
+                                    <select name="fs_product_type" id="fs_product_type" class="select-css">
+                                            <option value="ISA" selected="selected">ISA</option>
+                                            <option value="JISA">JISA</option>
+                                            <option value="PIA">PIA</option>
+                                            <option value="SIPP">SIPP</option>
+                                            <option value="Unwrapped">Unwrapped</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <label>Designation</label>
+                                <input type="text" id="fs_designation" name="fs_designation" value="">
+                            </div>
 
-                        <label>Fund Name</label>
-                        	<input type="text" id="fs_fund_name" name="fs_fund_name" value="">
+                            <input type="submit" class="button button__raised" value="Save Changes">
+                        </div>
+                    </div><!--add account-->
+                </div><!--client pers accounts-->
 
-                        <label>Designation</label>
-                        	<input type="text" id="fs_designation" name="fs_designation" value="">
-
-                    </div>
-                </div><!--add account-->
-            </div>
                 <div class="client__linked-accounts">
                     <h3 class="heading heading__2">Linked Accounts</h3>
 
@@ -231,11 +256,19 @@ require_once('page-sections/header-elements.php');
                     	<?php for($b=0;$b<count($lnk_array);$b++){
                              if($lnk_array[$b]!=''){  $lnkList .= $lnk_array[$b].'|';?>
                             <div class="client-account-wrapper">
+
                                 <div class="head">
-                                    <h3 class="heading heading__4">Linked Account Holder: <?=getUserName((int)$lnk_array[$b])?></h3>
-                            		<label>Remove Account</label>
-                                    <input name="dellink<?=(int)$lnk_array[$b];?>" type="checkbox" id="dellink<?=(int)$lnk_array[$b];?>" value="1">
-                                </div>
+                                    <label>Linked Account Holder</label>
+                                    <h3 class="heading heading__4"><?=getUserName((int)$lnk_array[$b])?></h3>
+                            		    <label>Remove Link</label>
+                                        <div class="radio-item">
+                                            <input class="star-marker" name="dellink<?=(int)$lnk_array[$b];?>" type="checkbox" id="dellink<?=(int)$lnk_array[$b];?>" value="1">
+                                            <?php define('__ROOT__', dirname(dirname(__FILE__)));
+                                            include(__ROOT__.'/admin/images/star.php'); ?>
+                                        </div><!--radio-->
+                                    <input type="submit" class="button button__raised" value="Save Changes">
+                                </div><!--head-->
+
                                 <div class="recess-box">
                                     <div class="account-table">
                                         <div class="account-table__head">
@@ -244,16 +277,14 @@ require_once('page-sections/header-elements.php');
                                             <label>Designator</label>
                                             <label>Type</label>
                                             <label>Display Name</label>
-                                        </div><!--head-->
+                                        </div><!--account-table__head-->
+
                                         <?php // Connect and create the PDO object
                                         $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
                                         $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-
                                         $query = "SELECT * FROM `tbl_fs_client_products` where fs_client_code LIKE '$lnk_array[$b]' AND bl_live = 1;";
-
                                         $result = $conn->prepare($query);
                                         $result->execute();
-
                                         // Parse returned data
                                         while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
 
@@ -263,35 +294,49 @@ require_once('page-sections/header-elements.php');
                                             <p><?=$row['fs_designation'];?></p>
                                             <p><?=$row['fs_product_type'];?></p>
                                             <p><?=getUserName($lnk_array[$b]) . ' ' . $row['fs_product_type'];?></p>
-                                        </div><!--body-->
+                                        </div><!--account-table__body-->
+
                                         <?php } $conn = null;        // Disconnect
-                                        }?>
-                                    </div>
-                                </div><!--recess-->
-                            
-                        <?php  }?>
-                    	<input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$lnkList;?>">
+                                        ?>
+                                    </div><!--account-table-->
+                                </div><!--recess-box-->
+
+                            </div><!--client-account-wrapper-->
+                        <?php }  }?>
                     <?php } ?>
 
+                    <input name="linked_accounts" type="hidden" id="linked_accounts" value="<?=$lnkList;?>">
                     <h4 class="heading heading__4">Add Linked Account</h4>
                     <div class="link-account">
                         <label>Account</label>
-                        <select name="linked_account" id="linked_account">
-                            <option value="" selected="selected">Select Account to Link</option>
-                            <?php foreach($links as $link) { ?>
-                                <option value="<?=$link['fs_client_code']?>"><?=$link['fs_client_name']?></option>
-                              <?php } ?>
-                        </select>
+                        <div class="select-wrapper">
+                            <select name="linked_account" id="linked_account" class="select-css">
+                                <option value="" selected="selected">Select Account to Link</option>
+                                <?php foreach($links as $link) { ?>
+                                    <option value="<?=$link['fs_client_code']?>"><?=$link['fs_client_name']?></option>
+                                  <?php } ?>
+                            </select>
+                        </div>
+                        <input type="submit" class="button button__raised" value="Save Changes">
                     </div>
+                </div><!--client linked accounts-->
 
-                </div><!--client account wrapper-->
-            </div>
+
+
+
+
+
+            </div><!--content-->
+
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
                 <input type="submit" class="button button__raised" value="Save Changes">
-                <div id="assetdetails" class="col-md-12 mt-5"></div>
-            </div>
+            </div><!--control-->
+
         </form>
+
+    </div>
+</div>
 
     <?php
     require_once('page-sections/footer-elements.php');
