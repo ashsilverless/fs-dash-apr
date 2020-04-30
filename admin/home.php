@@ -98,18 +98,14 @@ require_once('page-sections/sidebar-elements.php');
 
                     <label>Upload Latest File</label>
 					<div id="transfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
-					<input type="text" id="trans_file" name="trans_file" readonly value="File Name" class="mb1">
+					<input type="text" id="trans_file" name="trans_file" readonly value="No File Selected" class="mb1">
 					<div id="transcontainer">
                     <a href="javascript:;" class="button button__raised button__inline mr1" id="picktrans">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.87 22.25"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,19.39V13.8a2.14,2.14,0,0,1,.47-1.57L3.94,7.87C5,6.56,5.44,6.26,7,6.26H8.68V7.32H6.89a2,2,0,0,0-1.77.86l-3.55,4.5c-.29.37-.2.56.23.56H8.38A.59.59,0,0,1,9,13.9v0a2.45,2.45,0,1,0,4.89,0v0a.59.59,0,0,1,.61-.66h6.58c.43,0,.54-.17.23-.56L17.73,8.16A1.94,1.94,0,0,0,16,7.32H14.2V6.26h1.67c1.56,0,2,.3,3.06,1.59l3.47,4.38a2.12,2.12,0,0,1,.47,1.57v5.59A2.55,2.55,0,0,1,20,22.25H2.88A2.55,2.55,0,0,1,0,19.39ZM20,21a1.53,1.53,0,0,0,1.69-1.71v-5H15a3.5,3.5,0,0,1-3.59,3.21,3.5,3.5,0,0,1-3.6-3.21H1.21v5A1.52,1.52,0,0,0,2.9,21Zm-9.13-7.6V3.1l.05-1.42-.88.9L8.35,4.31a.61.61,0,0,1-.42.17A.52.52,0,0,1,7.39,4a.58.58,0,0,1,.18-.41L11,.2a.56.56,0,0,1,.44-.2.59.59,0,0,1,.43.2L15.3,3.55a.55.55,0,0,1,.19.41.53.53,0,0,1-.55.52.61.61,0,0,1-.42-.17L12.86,2.58,12,1.68,12,3.1V13.44a.6.6,0,0,1-1.2,0Z"/></g></g></svg>
                         Select File</a>
+                            <a href="javascript:;" class="button button__raised button__inline view-trans" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.87 17.69"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,14.83v-12A2.55,2.55,0,0,1,2.88,0H20a2.55,2.55,0,0,1,2.88,2.86v12A2.55,2.55,0,0,1,20,17.69H2.88A2.55,2.55,0,0,1,0,14.83ZM1.21,5.59H10.9V1.21h-8A1.53,1.53,0,0,0,1.21,2.92Zm0,1.08V11H10.9V6.67Zm9.69,9.8V12.1H1.21v2.67a1.51,1.51,0,0,0,1.69,1.7ZM21.66,5.59V2.92A1.53,1.53,0,0,0,20,1.21H12V5.59Zm0,5.44V6.67H12V11Zm0,3.74V12.1H12v4.37h8A1.52,1.52,0,0,0,21.66,14.77Z"/></g></g></svg> View Current Transaction File</a>
 					</div>
 
-				<!--   Upload TransFile  -->
-
-					<div id="result" class="col-md-12 mb-3" style="height:300px; max-height:300px; overflow-y: scroll;"><div id="data_info" class="col-md-12 text-center" style="height:300px; max-height:300px; overflow-y: scroll;"></div></div>
-
-				<!-- / Upload Trans File -->
             </div>
             <div class="col-5">
                 <h2 class="heading heading__2">Frequent Tasks</h2>
@@ -137,6 +133,18 @@ require_once('page-sections/sidebar-elements.php');
 		<!--<div id="assetdetails" class="col-md-12 mt-5"></div>-->
 </div><!--row-->
 </div><!--container-->
+
+<!--   Upload TransFile  -->
+
+<div class="container">
+    <div class="trans-file-raw">
+        <div id="result">
+            <div id="data_info" class="col-md-12 text-center" style="height:300px; max-height:300px; overflow-y: scroll;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- / Upload Trans File -->
 
 <?php require_once('page-sections/footer-elements.php');
 require_once('modals/delete.php');
@@ -207,6 +215,11 @@ require_once(__ROOT__.'/global-scripts.php');?>
           $('.'+$(this).attr('data-prod-name')).toggle();
           $('.head'+$(this).attr('data-prod-name')).toggleClass( "highlight normal" );
           $('.arrow'+$(this).attr('data-prod-name'), this).toggleClass("fa-caret-up fa-caret-down");
+    	});
+
+		$(".view-trans").click(function(e){
+            e.preventDefault();
+            $('.trans-file-raw').toggleClass('active');
     	});
 
 	function getParameterByName(name, url) {

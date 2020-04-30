@@ -67,6 +67,19 @@
     }
 }
 
+.trans-file-raw {
+    margin-top:3rem;
+    max-height: 0;
+    overflow:hidden;
+    transition: max-height 1s ease;
+    &.active {
+        @include recessUI;
+        overflow-y: scroll;
+        max-height: 80vh;
+        padding:2rem;
+    }
+}
+
 .daily-data {
     .data-section {
         overflow:hidden;

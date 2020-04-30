@@ -1,10 +1,40 @@
+html {
+        @include scrollbars(.75em, $color_green);
+}
+
 body {
+    @include scrollbars(1rem, $color_grey_light);
     overflow-y: scroll;
     background-color: $color_grey_mid;
+    ::-webkit-scrollbar-thumb {
+        border-radius:2rem;
+    }
+    ::-webkit-scrollbar-track {
+        border-radius:2rem;
+    }
 }
 
 section {
     min-height: 85vh;
+}
+
+label {
+    display: block;
+    margin-bottom:0;
+    text-align: left;
+    text-transform: uppercase;
+    color: $color_green;
+}
+
+input {
+    @include recessUI;
+    display: inline-block;
+    /*margin-bottom: 2rem;*/
+    width: auto;
+    padding:.75rem 2rem;
+    background-color:$color_grey_mid !important;
+    font-weight: 200;
+    text-transform: uppercase;
 }
 
 .button {
@@ -138,6 +168,9 @@ form {
         -webkit-appearance: none;
         box-shadow: none;
         border: none;
+    }
+    textarea {
+        resize:none;
     }
     label {
         display: block;

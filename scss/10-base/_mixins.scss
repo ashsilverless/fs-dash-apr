@@ -122,3 +122,23 @@ $sides: (top, bottom, left, right); // Sides var
         }
     }
 }
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, black, 50%)) {
+  ::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+	-webkit-box-shadow: 0 10px 10px rgba(0,0,0,.5);
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-track {
+      background: $background-color;
+
+  }
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
