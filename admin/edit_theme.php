@@ -17,7 +17,7 @@ try {
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			  $theme_title = $row['fs_theme_title'];
 			  $theme_narrative = $row['fs_theme_narrative'];
-			  $theme_icon = '<img src="../icons_folder/'.$row['fs_theme_icon'].'" style="margin-right:10px; max-width:80px;">';
+			  $row['fs_theme_icon'] != '' ? $theme_icon = '<img src="../icons_folder/'.$row['fs_theme_icon'].'" style="margin-right:10px; max-width:80px;">': $theme_icon = '';
 			  $theme_icon_file = $row['fs_theme_icon'];
 			  $steady = $row['fs_theme_steady'];
 			  $serious = $row['fs_theme_serious'];
@@ -73,11 +73,13 @@ catch(PDOException $e) {
 </div><!--details-->
 
 <div class="categories">
-    <label>Upload Icon</label>
+    <div id="icon_upload" style="float:left;"><label>Upload Icon</label>
+    <div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div><div id="fundcontainer"><a id="pickfund" href="javascript:;" class="button button__raised button__inline">Select File</a></div><input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>"><div id="theme_icon"><?=$theme_icon;?></div>
+	<!--
+	<label>Upload Icon</label>
     <input type="text" id="theme_icon" name="theme_file" value="File Name" class="mb1">
     <a href="#" class="button button__raised button__inline">Select File</a>
-    <!--<div id="icon_upload" class="col-md-3" style="float:left;"><h4>Upload Icon</h4>
-    <div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div><div id="fundcontainer"><a id="pickfund" href="javascript:;" class="d-sm-inline-block btn btn-sm shadow-sm">[Choose File]</a></div><input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>"><div id="theme_icon"><?=$theme_icon;?></div>-->
+    -->
 </div>
 
 </div><!--cats-->

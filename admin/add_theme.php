@@ -43,10 +43,14 @@ $initialDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
 
         </div><!--details-->
         <div class="categories">
-            <h4>Upload Icon</h4>
-            				<div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div><div id="fundcontainer"><a id="pickfund" href="javascript:;" class="d-sm-inline-block btn btn-sm shadow-sm">[Choose File]</a></div><input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>"><div id="theme_icon"><?=$theme_icon;?></div>
-
-
+            <div id="icon_upload" style="float:left;"><label>Upload Icon</label>
+				<div id="fundfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div><div id="fundcontainer"><a id="pickfund" href="javascript:;" class="button button__raised button__inline">Select File</a></div><input name="icon_file" type="hidden" id="icon_file" value="<?=$theme_icon_file;?>"><div id="theme_icon"><?=$theme_icon;?></div>
+				<!--
+				<label>Upload Icon</label>
+				<input type="text" id="theme_icon" name="theme_file" value="File Name" class="mb1">
+				<a href="#" class="button button__raised button__inline">Select File</a>
+				-->
+			</div>
         </div><!--cats-->
     </div><!--content-->
 
@@ -61,7 +65,7 @@ $initialDate = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
 
 
 </form>
-
+<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
     <script>
 
 	function getParameterByName(name, url) {
