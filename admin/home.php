@@ -87,24 +87,29 @@ require_once(__ROOT__.'/header.php');
 require_once('page-sections/header-elements.php');
 require_once('page-sections/sidebar-elements.php');
 ?>
-
+<!-- Upload script -->
+	<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
 <div class="col-md-9">
     <div class="border-box main-content daily-data">
 
         <div class="row">
             <div class="col-7">
                 <h2 class="heading heading__2">Upload Transaction File</h2>
-                <form>
+
                     <label>Upload Latest File</label>
-                    <input type="text" id="theme_title" name="theme_title" value="File Name" class="mb1">
-                    <a href="#" class="button button__raised button__inline mr1">
+					<div id="transfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+					<input type="text" id="trans_file" name="trans_file" readonly value="File Name" class="mb1">
+					<div id="transcontainer">
+                    <a href="javascript:;" class="button button__raised button__inline mr1" id="picktrans">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.87 22.25"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,19.39V13.8a2.14,2.14,0,0,1,.47-1.57L3.94,7.87C5,6.56,5.44,6.26,7,6.26H8.68V7.32H6.89a2,2,0,0,0-1.77.86l-3.55,4.5c-.29.37-.2.56.23.56H8.38A.59.59,0,0,1,9,13.9v0a2.45,2.45,0,1,0,4.89,0v0a.59.59,0,0,1,.61-.66h6.58c.43,0,.54-.17.23-.56L17.73,8.16A1.94,1.94,0,0,0,16,7.32H14.2V6.26h1.67c1.56,0,2,.3,3.06,1.59l3.47,4.38a2.12,2.12,0,0,1,.47,1.57v5.59A2.55,2.55,0,0,1,20,22.25H2.88A2.55,2.55,0,0,1,0,19.39ZM20,21a1.53,1.53,0,0,0,1.69-1.71v-5H15a3.5,3.5,0,0,1-3.59,3.21,3.5,3.5,0,0,1-3.6-3.21H1.21v5A1.52,1.52,0,0,0,2.9,21Zm-9.13-7.6V3.1l.05-1.42-.88.9L8.35,4.31a.61.61,0,0,1-.42.17A.52.52,0,0,1,7.39,4a.58.58,0,0,1,.18-.41L11,.2a.56.56,0,0,1,.44-.2.59.59,0,0,1,.43.2L15.3,3.55a.55.55,0,0,1,.19.41.53.53,0,0,1-.55.52.61.61,0,0,1-.42-.17L12.86,2.58,12,1.68,12,3.1V13.44a.6.6,0,0,1-1.2,0Z"/></g></g></svg>
                         Select File</a>
-                    <a href="#" class="button button__raised button__inline">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.13 20.38"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M16.67,10.53a.59.59,0,0,1,0,.83L9.32,18.71a5.29,5.29,0,0,1-7.68,0,5.29,5.29,0,0,1,0-7.69l9.79-9.8A3.76,3.76,0,0,1,17,1.14a3.75,3.75,0,0,1-.11,5.5l-9.6,9.6a2.21,2.21,0,1,1-3.12-3.12L11,6.28a.53.53,0,0,1,.79,0,.56.56,0,0,1,0,.79L4.93,13.86a1.13,1.13,0,1,0,1.59,1.6l9.56-9.58a2.74,2.74,0,0,0,.16-4,2.73,2.73,0,0,0-3.95.16L2.5,11.85a4.15,4.15,0,0,0,0,6.07,4.15,4.15,0,0,0,6.07,0l7.33-7.34A.57.57,0,0,1,16.67,10.53Z"/></g></g></svg>
-                        Upload</a>
-                </form>
-                <!--<div id="transfilelist" class="small">Your browser doesn't have Flash, Silverlight or HTML5 support.</div><div id="transcontainer"><a id="picktrans" href="javascript:;" class="d-sm-inline-block btn btn-sm shadow-sm">[Choose File]</a></div><input type="text" id="trans_file" name="trans_file" readonly>-->
+					</div>
+
+				<!--   Upload TransFile  -->
+
+					<div id="result" class="col-md-12 mb-3" style="height:300px; max-height:300px; overflow-y: scroll;"><div id="data_info" class="col-md-12 text-center" style="height:300px; max-height:300px; overflow-y: scroll;"></div></div>
+
+				<!-- / Upload Trans File -->
             </div>
             <div class="col-5">
                 <h2 class="heading heading__2">Frequent Tasks</h2>
@@ -127,13 +132,7 @@ require_once('page-sections/sidebar-elements.php');
 
 		<!-- / Upload Trans File -->
 
-		<!--<div class="row">
-              <div class="col-md-12">
-                  <canvas class="my-4 w-100 chartjs-render-monitor" id="linechart1" height="400"></canvas>
-				  <canvas class="my-4 w-100 chartjs-render-monitor" id="linechart2" height="400"></canvas>
-				  <canvas class="my-4 w-100 chartjs-render-monitor" id="linechart3" height="400"></canvas>
-              </div>
-          </div>-->
+
 
 		<!--<div id="assetdetails" class="col-md-12 mt-5"></div>-->
 </div><!--row-->
@@ -174,6 +173,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 				},
 
 				UploadProgress: function(up, file) {
+					$( "#trans_file" ).val(file);
 					$('#data_info').html('<strong>Uploading & Parsing Datafile</strong><br>Please wait.....<br><br><img src="images/animated_progress.gif">');
 				},
 
@@ -208,68 +208,6 @@ require_once(__ROOT__.'/global-scripts.php');?>
           $('.head'+$(this).attr('data-prod-name')).toggleClass( "highlight normal" );
           $('.arrow'+$(this).attr('data-prod-name'), this).toggleClass("fa-caret-up fa-caret-down");
     	});
-
-		Chart.defaults.global.legend.display = false;
-
-/* ##########################################       LINE CHART     ################################################## */
-
-		var ctxline = document.getElementById('linechart1');
-		var myLineChart = new Chart(ctxline, {
-			type: 'line',
-			data: {
-				datasets: [{
-					fill:false,
-					lineTension:0,
-					pointRadius:0,
-					borderColor:['rgba(0, 0, 150, 0.75)'],
-					borderWidth:2,
-					label:'T. Bailey Growth Fund A Accumulation',
-					data:[<?=mb_substr($GB0009346486, 0, -1);?>],
-				}],
-				labels: [<?=mb_substr($labels1,0, -1);?>]
-			},
-
-			options: { tooltips: {enabled: true}, legend: {display: true}}
-		});
-
-		var ctxline = document.getElementById('linechart2');
-		var myLineChart = new Chart(ctxline, {
-			type: 'line',
-			data: {
-				datasets: [{
-					fill:false,
-					lineTension:0,
-					pointRadius:0,
-					borderColor:['rgba(0, 150, 150, 0.75)'],
-					borderWidth:2,
-					label:'T. Bailey Dynamic Fund A  Accumulation',
-					data:[<?=mb_substr($GB00B1LB2Z79, 0, -1);?>],
-				}],
-				labels: [<?=mb_substr($labels2,0, -1);?>]
-			},
-
-			options: { tooltips: {enabled: true}, legend: {display: true}}
-		});
-
-		var ctxline = document.getElementById('linechart3');
-		var myLineChart = new Chart(ctxline, {
-			type: 'line',
-			data: {
-				datasets: [{
-					fill:false,
-					lineTension:0,
-					pointRadius:0,
-					borderColor:['rgba(150, 0, 150, 0.75)'],
-					borderWidth:2,
-					label:'T. Bailey Dynamic Fund F Accumulation',
-					data:[<?=mb_substr($GB00BJQWRN41, 0, -1);?>],
-				}],
-				labels: [<?=mb_substr($labels3,0, -1);?>]
-			},
-
-			options: { tooltips: {enabled: true}, legend: {display: true}}
-		});
-
 
 	function getParameterByName(name, url) {
         if (!url) url = window.location.href;
