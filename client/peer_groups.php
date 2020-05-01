@@ -9,7 +9,7 @@ $client_code = $_SESSION['fs_client_featherstone_cc'];
 $last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_client_code = "'.$client_code.'"');
 
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
-
+$confirmed_date = $row['confirmed_date']= date('d M Y');
 try {
   // Connect and create the PDO object
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
@@ -67,7 +67,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
         <div class="border-box main-content">
               <div class="main-content__head">
                   <h1 class="heading heading__1">Peer Group Comparison</h1>
-                  <p class="mb3">Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
+                  <p class="mb3">Data accurate as at <?= $confirmed_date;?></p>
               </div>
 
 <div class="chart-wrapper">
@@ -137,20 +137,20 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
                       // Parse returned data
                       while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-
+                        // first coord is multiplied by 10
+                        // second coord is multiplied by 100 and removed from 100
+                        //54,37 76,30
                     if($row['fs_trend_line'] == 1) {
-                        $trendVol = $row['fs_peer_volatility'] * 10;
-                        $trendRet = $row['fs_peer_return'] * 10;
+                        $trendRet = ($row['fs_peer_return'] * 10);
+                        $trendVol = 100 - ($row['fs_peer_volatility'] * 10);
                         echo $trendRet. ',' .$trendVol. ' ';
-                        }
-
+                    }
                     }
                       $conn = null;        // Disconnect
                   }
                   catch(PDOException $e) {
                   echo $e->getMessage();
             }?>
-
             "fill="none"/>
         </svg>
 
@@ -161,19 +161,6 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     </div>
   </div>
 </div>
-
-
-	<!-- Footer -->
-      <footer class="col-md-12 mt-5">
-       <div class="auto-LogOut"></div>
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Featherstone 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
 
 <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -211,7 +198,8 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
   </div>
 
   <?php define('__ROOT__', dirname(dirname(__FILE__)));
-  require_once(__ROOT__.'/global-scripts.php');?>
+  require_once(__ROOT__.'/global-scripts.php');
+  require_once('../page-sections/footer-elements.php');?>
 
     <script type="text/javascript">
 

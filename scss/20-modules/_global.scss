@@ -1,5 +1,11 @@
 html {
-        @include scrollbars(.75em, $color_green);
+        @include scrollbars(1em, $color_grey_light);
+        ::-webkit-scrollbar-thumb {
+            border-radius:2rem;
+        }
+        ::-webkit-scrollbar-track {
+
+        }
 }
 
 body {

@@ -236,15 +236,9 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
 </div>
 
-	<!-- Footer -->
-      <footer class="col-md-12 mt-5">
-
-            <span>Copyright &copy; Featherstone 2020</span>
-
-      </footer>
-      <!-- End of Footer -->
-
-<?php define('__ROOT__', dirname(dirname(__FILE__)));
+<?php
+require_once('../page-sections/footer-elements.php');
+define('__ROOT__', dirname(dirname(__FILE__)));
 require_once(__ROOT__.'/modals/logout.php');
 require_once(__ROOT__.'/modals/time-out.php');
 require_once(__ROOT__.'/global-scripts.php');?>

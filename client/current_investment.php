@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 $user_id = $_SESSION['fs_client_featherstone_uid'];
 $client_code = $_SESSION['fs_client_featherstone_cc'];
 $last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_client_code = "'.$client_code.'"');
+$confirmed_date = $row['confirmed_date']= date('d M Y');
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 try {
   // Connect and create the PDO object
@@ -50,7 +51,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
             <div class="border-box main-content">
                 <div class="main-content__head">
                     <h1 class="heading heading__1">Current Investment Themes</h1>
-                    <p>Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
+                    <p class="mb3">Data accurate as at <?= $confirmed_date;?></p>
                 </div>
 
 				<div class="container">
@@ -89,19 +90,6 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     </div>
 </div>
 
-
-	<!-- Footer -->
-      <footer class="col-md-12 mt-5">
-       <div class="auto-LogOut"></div>
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Featherstone 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-
 <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -138,7 +126,8 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
   </div>
 
   <?php define('__ROOT__', dirname(dirname(__FILE__)));
-  require_once(__ROOT__.'/global-scripts.php');?>
+  require_once(__ROOT__.'/global-scripts.php');
+  require_once('../page-sections/footer-elements.php');?>
 
     <script>
       $(".toggler").click(function(e){

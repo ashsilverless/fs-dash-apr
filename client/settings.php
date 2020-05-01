@@ -91,18 +91,6 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
   </div>
 </div>
 
-
-<!-- Footer -->
-<div class="auto-LogOut"></div>
-<footer class="col-md-12 mt-5">
-<div class="container my-auto">
-  <div class="copyright text-center my-auto">
-    <span>Copyright &copy; Featherstone 2020 <?=$user_id;?></span>
-  </div>
-</div>
-</footer>
-<!-- End of Footer -->
-
 <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -138,20 +126,10 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     </div>
   </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
-
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-	<!-- Custom Scripts -->
-    <script src="js/custom.js"></script>
+  <?php define('__ROOT__', dirname(dirname(__FILE__)));
+  require_once(__ROOT__.'/global-scripts.php');
+  require_once('../page-sections/footer-elements.php');?>
+  
     <script>
       feather.replace()
     </script>
