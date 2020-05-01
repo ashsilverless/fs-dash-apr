@@ -71,48 +71,92 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
               </div>
 
 <div class="chart-wrapper">
-    <?php
-    $sum = 0;
-    for($i = 1; $i<=11; $i++) {?>
-        <div class="x-axis" style="left:<?php echo $sum;?>%;"></div>
-        <div class="y-axis" style="top:<?php echo $sum;?>%;"></div>
-    <?php $sum = $sum + 10;
-    }?>
+    <div class="chart-wrapper__x-axis">
+        <?php //create x axis values
+        $sum = 0;
+        for($i = 1; $i<=11; $i++) {?>
+            <div class="x-axis-values" style="left:<?php echo $sum * 10;?>%;"><?php echo $sum;?></div>
+        <?php $sum = $sum + 1;
+        }?>
+    </div>
+    <div class="chart-wrapper__y-axis">
+        <?php //create y axis values
+        $sum = 10;
+        for($i=10; $i>=0; $i--){?>
+            <div class="y-axis-values" style="bottom:<?php echo $sum * 10;?>%;"><?php echo $sum;?></div>
+            <?php $sum = $sum - 1;
+            }?>
+    </div>
+    <div class="chart-wrapper__y-label">Annualised Return (%)</div>
+    <div class="chart-wrapper__x-label">Annualised Volatility (%)</div>
+    <div class="chart-wrapper__inner">
+        <?php //create chart inner
+        $sum = 0;
+        for($i = 1; $i<=11; $i++) {?>
+            <div class="x-axis" style="left:<?php echo $sum * 10;?>%;"></div>
+            <div class="y-axis" style="top:<?php echo $sum *10;?>%;"></div>
+        <?php $sum = $sum + 1;
+        }?>
 
-    <?php
-    try {
-      // Connect and create the PDO object
-      $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
-      $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+        <?php //create data points
+        try {
+          // Connect and create the PDO object
+          $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+          $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-        $query = "SELECT *  FROM `tbl_fs_peers` where bl_live = 1;";
+            $query = "SELECT *  FROM `tbl_fs_peers` where bl_live = 1;";
 
-        $result = $conn->prepare($query);
-        $result->execute();
+            $result = $conn->prepare($query);
+            $result->execute();
 
-              // Parse returned data
-              while($row = $result->fetch(PDO::FETCH_ASSOC)) {  ?>
+                  // Parse returned data
+                  while($row = $result->fetch(PDO::FETCH_ASSOC)) {  ?>
 
-<div class="data-point" style="top:<?= $row['fs_peer_return'] * 10;?>%; left:<?= $row['fs_peer_volatility'] * 10;?>%;"><?= $row['fs_peer_name'];?></div>
+                    <div class="data-point trendline<?= $row['fs_trend_line'];?>" style="bottom:<?= $row['fs_peer_volatility'] * 10;?>%; left:<?= $row['fs_peer_return'] * 10;?>%;"><?= $row['fs_peer_name'];?></div>
 
-
-
-
-              <?php }
-              $conn = null;        // Disconnect
+                  <?php }
+                  $conn = null;        // Disconnect
               }
               catch(PDOException $e) {
               echo $e->getMessage();
-              }?>
+        }?>
 
+        <svg id="trendline" width='100%' height='100%' viewBox="0 0 100 100" preserveAspectRatio="none">
 
-</div>
+            <polyline points="
+            <?php //create trendline
+            try {
+              // Connect and create the PDO object
+              $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+              $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
+                $query = "SELECT *  FROM `tbl_fs_peers` where bl_live = 1;";
 
+                $result = $conn->prepare($query);
+                $result->execute();
 
+                      // Parse returned data
+                      while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
+                    if($row['fs_trend_line'] == 1) {
+                        $trendVol = $row['fs_peer_volatility'] * 10;
+                        $trendRet = $row['fs_peer_return'] * 10;
+                        echo $trendRet. ',' .$trendVol. ' ';
+                        }
 
-              <canvas class="chartjs-render-monitor" id="scatterchart"></canvas>
+                    }
+                      $conn = null;        // Disconnect
+                  }
+                  catch(PDOException $e) {
+                  echo $e->getMessage();
+            }?>
+
+            "fill="none"/>
+        </svg>
+
+    </div>
+</div><!--chart wrapper-->
+              <!--<canvas class="chartjs-render-monitor" id="scatterchart"></canvas>-->
         </div>
     </div>
   </div>
@@ -171,147 +215,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
     <script type="text/javascript">
 
-	function drawChart() {
-	 //Chart.defaults.global.legend.display = false;
-     var ctx = document.getElementById('scatterchart');
 
-		Chart.pluginService.register({
-		  beforeRender: function(chart) {
-			if (chart.config.options.showAllTooltips) {
-			  // create an array of tooltips
-			  // we can't use the chart tooltip because there is only one tooltip per chart
-			  chart.pluginTooltips = [];
-			  chart.config.data.datasets.forEach(function(dataset, i) {
-				chart.getDatasetMeta(i).data.forEach(function(sector, j) {
-				  chart.pluginTooltips.push(new Chart.Tooltip({
-					_chart: chart.chart,
-					_chartInstance: chart,
-					_data: chart.data,
-					_options: chart.options.tooltips,
-					_active: [sector]
-				  }, chart));
-				});
-			  });
-
-			  // turn off normal tooltips
-			  chart.options.tooltips.enabled = false;
-			}
-		  },
-		  afterDraw: function(chart, easing) {
-			if (chart.config.options.showAllTooltips) {
-			  // we don't want the permanent tooltips to animate, so don't do anything till the animation runs atleast once
-			  if (!chart.allTooltipsOnce) {
-				if (easing !== 1)
-				  return;
-				chart.allTooltipsOnce = true;
-			  }
-
-			  // turn on tooltips
-			  chart.options.tooltips.enabled = true;
-			  Chart.helpers.each(chart.pluginTooltips, function(tooltip) {
-				tooltip.initialize();
-				tooltip.update();
-				// we don't actually need this since we are not animating tooltips
-				tooltip.pivot();
-				tooltip.transition(easing).draw();
-			  });
-			  chart.options.tooltips.enabled = false;
-			}
-		  }
-		});
-
-		var chart = new Chart(ctx, {
-		   type: 'scatter',
-		   labels: 'Peer Groups',
-		   data: {
-			  datasets: [{
-				 label: [<?=substr($peer_name_line, 0, -1);?>],
-				 data: [<?=substr($peer_data_line, 0, -1);?>],
-				 borderColor: '#629FD6',
-				 borderWidth: 1,
-				 pointBackgroundColor:'#629FD6',
-				 pointBorderColor:'#629FD6',
-				 pointRadius: 3,
-				 pointHoverRadius: 3,
-				 fill: false,
-				 tension: 0,
-				 showLine: true
-			  	 }, {
-				 label: [<?=substr($peer_name, 0, -1);?>],
-				 data: [<?=substr($peer_data, 0, -1);?>],
-				 pointBackgroundColor: '#849db3',
-				 pointBorderColor: '#849db3',
-				 pointRadius: 3,
-				 pointHoverRadius: 3
-			  }]
-		   },
-		   options: {
-			  legend: {
-				display: false
-			 },
-			  showAllTooltips: true,
-			  tooltips: {
-				 backgroundColor: 'rgba(255, 255, 255, 0)',
-				 bodyFontColor: '#FFF',
-				 displayColors: false,
-                 defaultFontFamily: 'mr-eaves-modern, sans-serif',
-				 callbacks: {
-					label: function(tooltipItem, data) {
-					   var tLabel = data.datasets[tooltipItem.datasetIndex].label[tooltipItem.index];
-					   var yLabel = tooltipItem.yLabel;
-					   return tLabel;
-					}
-				 }
-			  },
-			 scales: {
-
-				yAxes: [{
-					scaleLabel: {
-					  display: true,
-					  labelString: 'Annualised Return(%)',
-                      defaultFontFamily: 'mr-eaves-modern, sans-serif',
-                      fontStyle: 200,
-					},
-					gridLines: {
-					  display: true ,
-					  color: "rgba(255, 255, 255, 0.15)"
-					}
-				}],
-				xAxes: [{
-					scaleLabel: {
-					  display: true,
-					  labelString: 'Annualised Volatility(%)',
-                      defaultFontFamily: 'mr-eaves-modern, sans-serif',
-                      fontStyle: 200,
-                      defaultFontSize:25,
-					},
-					gridLines: {
-					  display: true ,
-					  color: "rgba(255, 255, 255, 0.15)"
-					}
-				}]
-        }
-
-		   }
-		});
-
-	};
-/*
-
-tooltips: {
-  callbacks: {
-    label: function(tooltipItem, data) {
-      var item = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-      return item.y  + ' ' + item.value;
-    }
-  }
-}
-
-*/
-
-	$( document ).ready(function() {
-		drawChart();
-    });
 
 
     </script>

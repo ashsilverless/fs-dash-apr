@@ -59,7 +59,7 @@ require_once('page-sections/header-elements.php');
 <div class="container">
     <div class="border-box main-content">
         <h1 class="heading heading__2">Staff Details</h1>
-		<form action="editstaff.php?id=<?=$staff_id;?>" method="post" id="editstaff" name="editstaff" class="asset-form">
+		<form action="addstaff.php" method="post" id="addstaff" name="addstaff" class="asset-form">
             <div class="content client">
                 <div class="client__pers-details" style="border:none;">
                     <div class="item prefix mb1">
@@ -75,58 +75,52 @@ require_once('page-sections/header-elements.php');
                     </div>
                     <div class="item first-name">
                         <label>First Name</label>
-                        <input type="text" id="staff_first_name" name="staff_first_name" value="<?= $staff_first_name;?>">
+                        <input type="text" id="staff_first_name" name="staff_first_name" value="">
                     </div>
                     <div class="item second-name">
                         <label>Last Name</label>
-                        <input type="text" id="staff_last_name" name="staff_last_name" value="<?= $staff_last_name;?>">
+                        <input type="text" id="staff_last_name" name="staff_last_name" value="">
                     </div>
+
                     <div class="item user-name mb1">
                         <label>User Name</label>
-                        <input type="text" id="staff_user_name" name="staff_user_name" value="<?= $staff_user_name;?>">
+                        <input type="text" id="staff_user_name" name="staff_user_name" value="">
                     </div>
                     <div class="item email mb1">
-                        <label>Client Email</label>
-                        <input type="text" id="staff_email" name="staff_email" value="<?= $staff_email;?>">
+                        <label>Staff Email</label>
+                        <input type="text" id="staff_email" name="staff_email" value="">
                     </div>
                     <div class="item password">
                         <label>Password</label>
-                        <input type="text" id="staff_password" name="staff_password" value="<?= $staff_password;?>" <?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>readonly<?php }?>>
+                        <input type="text" id="staff_password" name="staff_password" value="">
                     </div>
-
-					<div class="item qrcode">
-                        <label>QR Code</label>
-                        <img src='<?php echo $qrCodeUrl; ?>'/>
-                    </div>
-
-                    <!--<div class="item user-id">
-                        <label>User ID</label>
-                        <input type="text" id="fs_client_code" name="fs_client_code" value="<?=$fs_client_code;?>">
-                    </div>-->
                     <div class="item type">
                         <label>Type</label>
                         <div class="select-wrapper">
                             <select name="agent_level" id="agent_level" class="select-css">
-                              <option value="999" <?php if($agent_level=='999'){?>selected = 'selected' <?php }?>>Temporary Block</option>
-                              <option value="1" <?php if($agent_level=='1'){?>selected = 'selected' <?php }?>>Admin</option>
-							<?php if($_SESSION['agent_level']< '2'){ $disabled = 'disabled'; };?>
-                              <option value="2" <?php if($agent_level=='2'){?>selected = 'selected' <?php }?> <?=$disabled;?>>Super Admin</option>
+                              <option value="999">Temporary Block</option>
+                              <option value="1">Admin</option>
+                              <option value="2">Super Admin</option>
                             </select>
                             <i class="fas fa-sort-down"></i>
                         </div>
                     </div>
                     <div class="item destruct">
                         <label>Destruct Date</label>
-                        <input name="staff_destruct_date<?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>readonly<?php }?>" type="text" id="staff_destruct_date<?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>readonly<?php }?>" title="staff_destruct_date" value="<?= $staff_destruct_date;?>" size="12" <?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>readonly<?php }?>>
+                        <input name="staff_destruct_date" type="text" id="staff_destruct_date" title="staff_destruct_date" value="" size="12">
                     </div>
+					<div class="item telephone">
+                        <label>Telephone Number</label>
+                        <input type="text" id="staff_phone" name="staff_phone" value="">
+                    </div>
+
                     <div></div>
                 </div><!--pers details-->
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
-                <input type="submit" class="button button__raised" value="Save Changes" <?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>disabled<?php }?>>
-				<?php if($_SESSION['agent_level']>1){ ?><input href="#" data-href="deletestaff.php?id=<?= $staff_id;?>" data-toggle="modal" data-target="#confirm-delete" class="button button__raised" value="Delete Staff Member"><?php }?>
-
+                <input type="submit" class="button button__raised" value="Save Changes">
+                <input type="submit" class="button button__raised" value="Delete Staff Member">
             </div>
         </form>
 
