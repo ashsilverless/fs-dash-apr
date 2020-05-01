@@ -37,10 +37,10 @@ try {
 		  // Verification success!
 			session_regenerate_id();
 			$_SESSION['fs_admin_name'] = $row['first_name'].' '.$row['last_name'];
-		  
+
 		  $_SESSION['secret'] = $row['verification_code'];
 		  $_SESSION['email'] 	= $row['email_address'];
-		  
+
             $_SESSION['username'] = $row['user_name'];
             $_SESSION['phone'] = $row['telephone'];
             $_SESSION['user_id'] = $row['id'];

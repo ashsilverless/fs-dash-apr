@@ -221,7 +221,8 @@ form {
         }
     }
     input.star-marker:checked ~ .star {
-        opacity:1
+        opacity:1;
+        filter: drop-shadow (0 0 5px hsla(0, 0%, 100%, 0.3));
     }
 }
 

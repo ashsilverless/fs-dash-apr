@@ -11,7 +11,7 @@ require_once('page-sections/header-elements.php');
     <div class="border-box main-content daily-data">
 <a href="#" class="addasset button button__raised button__inline">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.82 16.22"><defs><style>.cls-1{fill:#1d1d1b;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M7.25,15.57V8.78H.66a.67.67,0,0,1,0-1.33H7.25V.65a.66.66,0,0,1,1.32,0v6.8h6.6a.67.67,0,0,1,0,1.33H8.57v6.79a.66.66,0,0,1-1.32,0Z"/></g></g></svg>
-    Add Asset</a><a href="#" class="expand-panel__cancel-button">Cancel</a>
+    Add Asset</a>
 <div id="assetdetails" class="expand-panel newasset"></div>
 <div id="editasset" class="expand-panel editasset-target"></div>
 

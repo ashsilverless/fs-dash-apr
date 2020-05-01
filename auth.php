@@ -7,7 +7,7 @@ $str_date=$my_t['year']."-".$my_t['mon']."-".$my_t['mday']." ".$my_t['hours'].":
 $checkResult="";
 if($_POST['code']){
 $code=$connect->real_escape_string($_POST['code']);
-$secret = $_SESSION['secret'];
+$secret = $_SESSION['fs_client_secret'];
 
 require_once 'googleLib/GoogleAuthenticator.php';
 $ga = new GoogleAuthenticator();
@@ -15,17 +15,17 @@ $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock toler
 
 
 if ($checkResult){
-	$_SESSION['googleCode']	= $code;
-	$_SESSION['loggedin'] = TRUE;
+	$_SESSION['fs_client_googleCode']	= $code;
+	$_SESSION['fs_client_loggedin'] = TRUE;
 
-	$mysql = db_query("UPDATE tbl_fsusers set last_logged_in = '".$str_date."' WHERE id = ".$_SESSION['user_id'].";");
+	$mysql = db_query("UPDATE tbl_fsusers set last_logged_in = '".$str_date."' WHERE id = ".$_SESSION['fs_client_user_id'].";");
 
 	header("location:client/home.php");
     exit;
 
 }
 else{
-	$_SESSION['loggedin'] = FALSE;
+	$_SESSION['fs_client_loggedin'] = FALSE;
 	header("location:device_confirmations.php");
     exit;
 }

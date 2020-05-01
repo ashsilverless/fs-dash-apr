@@ -406,6 +406,7 @@ form.fund {
     display: grid;
     grid-template-columns: 6fr 2fr;
     grid-column-gap: 2rem;
+    margin-bottom: 3rem;
     .content {
         grid-column: 1/2;
         display: grid;
@@ -680,7 +681,7 @@ form.fund {
         align-items: center;
         margin-bottom: 1rem;
         border-bottom: 1px solid #606060;
-        padding-bottom: 0;
+        padding-bottom: 1rem;;
         &:last-of-type {
             border:none;
             margin-bottom:0;
@@ -765,6 +766,9 @@ form.settings {
 
 .content.client {
     grid-template-columns: 1fr;
+    svg path {
+        fill:$color_red;
+    }
     .client__pers-details {
         @include borderBottom;
         grid-column: 1/3;

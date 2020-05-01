@@ -28,8 +28,8 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
 $conn = null;
 
-$_SESSION['name'] = $first_name;
-$_SESSION['username'] = $user_name;
+$_SESSION['fs_client_name'] = $first_name;
+$_SESSION['fs_client_username'] = $user_name;
 
 header("location:settings.php?msg=updated");
 ?>

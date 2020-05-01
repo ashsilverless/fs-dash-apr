@@ -2,7 +2,7 @@
 include('connection.php');
 
 $csrf		=	$connect->real_escape_string($_POST["csrf"]);
-if ($csrf == $_SESSION["token"]) {
+if ($csrf == $_SESSION["fs_client_token"]) {
 	$username	= $connect->real_escape_string($_POST['username']);
 	$password	= $connect->real_escape_string($_POST['password']);
 
@@ -12,21 +12,21 @@ if ($csrf == $_SESSION["token"]) {
 	if($resuser = 1){
 		$row = mysqli_fetch_array($query);
 		session_regenerate_id();
-		$_SESSION['email'] 	= $row['email_address'];
-		$_SESSION['pass'] 	= $row['password'];
-		$_SESSION['secret'] = $row['googlecode'];
+		$_SESSION['fs_client_email'] 	= $row['email_address'];
+		$_SESSION['fs_client_pass'] 	= $row['password'];
+		$_SESSION['fs_client_secret'] = $row['googlecode'];
 
-		$_SESSION['name'] = $row['first_name'];
-		$_SESSION['username'] = $row['user_name'];
-		$_SESSION['phone'] = $row['telephone'];
-		$_SESSION['user_id'] = $row['id'];
-		$_SESSION['company_id'] = $row['company_id'];
-		$_SESSION['agent_level'] = $row['agent_level'];
-		$_SESSION['id'] = session_id();
-		$_SESSION['featherstone_cc'] = $row['fs_client_code'];
-		$_SESSION['featherstone_uid'] = $row['id'];
+		$_SESSION['fs_client_name'] = $row['first_name'];
+		$_SESSION['fs_client_username'] = $row['user_name'];
+		$_SESSION['fs_client_phone'] = $row['telephone'];
+		$_SESSION['fs_client_user_id'] = $row['id'];
+		$_SESSION['fs_client_company_id'] = $row['company_id'];
+		$_SESSION['fs_client_agent_level'] = $row['agent_level'];
+		$_SESSION['fs_client_id'] = session_id();
+		$_SESSION['fs_client_featherstone_cc'] = $row['fs_client_code'];
+		$_SESSION['fs_client_featherstone_uid'] = $row['id'];
 
-		$row['last_logged_in'] != '' ?	$_SESSION['newregister'] = 0 : $_SESSION['newregister'] = 1;
+		$row['last_logged_in'] != '' ?	$_SESSION['fs_client_newregister'] = 0 : $_SESSION['fs_client_newregister'] = 1;
 
 		header('Location:device_confirmations.php');
 		exit();
@@ -61,7 +61,7 @@ if ($csrf == $_SESSION["token"]) {
                                 </h1>
                                 <form name="reg" action="index.php" method="POST">
     <?=$strmsg;?>
-    <input type="hidden" name="csrf" 	 value="<?php print $_SESSION["token"]; ?>" >
+    <input type="hidden" name="csrf" 	 value="<?php print $_SESSION["fs_client_token"]; ?>" >
     <input type="hidden" name="passcode" value="<?php echo $passcode; ?>" >
     <div class="form-group">
         <label>Email Address</label>
