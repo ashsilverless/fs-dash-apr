@@ -117,7 +117,10 @@ catch(PDOException $e) {
             <input type="text" id="cat_new" class="mb1"
             name="cat_new"><input type="hidden" id="cat_ids" name="cat_ids" value="<?=substr($idString, 0, -1);?>">
             <label>Asset Colour</label>
-            <input type="color" id="asset_color" class="color-picker" name="asset_color" value="<?= $asset_color;?>">
+            <div class="color-panel-wrapper">
+                <input type="color" id="asset_color" class="color-picker" name="asset_color" value="<?= $asset_color;?>">    
+            </div>
+
         </div><!--cats-->
     </div>
 

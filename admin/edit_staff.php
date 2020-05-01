@@ -1,5 +1,8 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
+require_once '../googleLib/GoogleAuthenticator.php';
+$ga = new GoogleAuthenticator();
+
 $staff_id = $_GET['id'];
 $user_type = array("1"=>"Admin", "2"=>"Super Admin", "3"=>"User");
 
@@ -29,6 +32,8 @@ try {
 			  $confirmed_by = $row['confirmed_by'];
 			  $confirmed_date = $row['confirmed_date'];
 
+			  $googlecode = $row['verification_code'];
+
 		  }
 
   $conn = null;        // Disconnect
@@ -42,6 +47,8 @@ catch(PDOException $e) {
 if($_SESSION['agent_level']< '2'){
 	$staff_password = '**********';
 }
+
+$qrCodeUrl 	= $ga->getQRCodeGoogleUrl($email_address, $googlecode,'www.featherstone.co.uk');
 ?>
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
@@ -86,10 +93,16 @@ require_once('page-sections/header-elements.php');
                         <label>Password</label>
                         <input type="text" id="staff_password" name="staff_password" value="<?= $staff_password;?>" <?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>readonly<?php }?>>
                     </div>
-                    <div class="item user-id">
+
+					<div class="item qrcode">
+                        <label>QR Code</label>
+                        <img src='<?php echo $qrCodeUrl; ?>'/>
+                    </div>
+
+                    <!--<div class="item user-id">
                         <label>User ID</label>
                         <input type="text" id="fs_client_code" name="fs_client_code" value="<?=$fs_client_code;?>">
-                    </div>
+                    </div>-->
                     <div class="item type">
                         <label>Type</label>
                         <div class="select-wrapper">

@@ -69,6 +69,49 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                   <h1 class="heading heading__1">Peer Group Comparison</h1>
                   <p class="mb3">Data accurate as at <?= date('j M y',strtotime($last_date));?></p>
               </div>
+
+<div class="chart-wrapper">
+    <?php
+    $sum = 0;
+    for($i = 1; $i<=11; $i++) {?>
+        <div class="x-axis" style="left:<?php echo $sum;?>%;"></div>
+        <div class="y-axis" style="top:<?php echo $sum;?>%;"></div>
+    <?php $sum = $sum + 10;
+    }?>
+
+    <?php
+    try {
+      // Connect and create the PDO object
+      $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+      $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+
+        $query = "SELECT *  FROM `tbl_fs_peers` where bl_live = 1;";
+
+        $result = $conn->prepare($query);
+        $result->execute();
+
+              // Parse returned data
+              while($row = $result->fetch(PDO::FETCH_ASSOC)) {  ?>
+
+<div class="data-point" style="top:<?= $row['fs_peer_return'] * 10;?>%; left:<?= $row['fs_peer_volatility'] * 10;?>%;"><?= $row['fs_peer_name'];?></div>
+
+
+
+
+              <?php }
+              $conn = null;        // Disconnect
+              }
+              catch(PDOException $e) {
+              echo $e->getMessage();
+              }?>
+
+
+</div>
+
+
+
+
+
               <canvas class="chartjs-render-monitor" id="scatterchart"></canvas>
         </div>
     </div>

@@ -267,6 +267,11 @@ body .datepicker-panel>ul>li.highlighted {
     border-radius: 20%;
 }
 
+.color-panel-wrapper {
+    border-radius: 1rem;
+    overflow:hidden;
+}
+
 form.fund {
     border-bottom: 1px solid #606060;
     margin-bottom: 1rem;
@@ -952,4 +957,41 @@ form.settings {
         grid-column: 1/2;
         margin-bottom: 1rem;
     }
+}
+
+.chart-wrapper {
+  position: relative;
+  border: 1px solid black;
+  height:90vh;
+  width:100%;
+  .x-axis {
+    position: absolute;
+    width:1px;
+    height:100%;
+    top:0;
+    background:red;
+  }
+    .y-axis {
+    position: absolute;
+    width:100%;
+    height:1px;
+    left:0;
+    background:red;
+  }
+
+  .data-point {
+    position:absolute;
+    margin-top:-.5rem;
+    margin-left:5px;
+    &:before {
+      content:'';
+      position:absolute;
+      left:-10px;
+      top:5px;
+      background:blue;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+    }
+  }
 }
