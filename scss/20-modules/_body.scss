@@ -1078,3 +1078,10 @@ form.settings {
     stroke-width:.25px;
     stroke:$color_purple;
 }
+
+.help-content {
+    .heading + p,
+    p + p {
+        margin-top:1rem;
+    }
+}
