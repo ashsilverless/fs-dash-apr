@@ -8,6 +8,11 @@ $('.toggle').on('click', function() {
 $('.asset-wrapper__table .toggle').on('click', function() {
     $('.item.active').removeClass('active');
     $(this).closest( '.item' ).toggleClass('active');
+    var selectedId = '.' + $(this).closest( '.item' ).attr('data-asset');
+    $('circle.selected').removeClass('selected');
+    $('text.active').removeClass('active');
+    $('circle' + selectedId).addClass('selected');
+    $('text' + selectedId).addClass('active');
 })
 
 $('circle.donut-segment').on('click', function() {
