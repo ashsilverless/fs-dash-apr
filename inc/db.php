@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!$_SESSION['loggedin']){
+if(!$_SESSION['fs_client_loggedin']){
     header("location:../index.php");
 }
 
@@ -337,7 +337,7 @@ $svrdata = sanSlash($svrdata);
 #####################################################################
 
 $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_SESSION['fs_client_user_id'];
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO tbl_fshits (str_ip,dt_date,str_page,str_querystring,str_ref,int_user_id) VALUES('$str_ipaddress','$str_date','$str_path','$svrdata','$ref','$user_id')";
     $conn->exec($sql);
