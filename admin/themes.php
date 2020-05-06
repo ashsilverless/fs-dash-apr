@@ -107,6 +107,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 		$(".editasset-trigger").click(function(e){
             e.preventDefault();
             var theme_id = getParameterByName('id',$(this).attr('href'));
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             $("#editasset").load("edit_theme.php?id="+theme_id);
             $('.expand-panel.editasset-target').addClass('open');
             $('.addasset.button').hide();
