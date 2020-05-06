@@ -661,6 +661,33 @@ form.fund {
     }
 }
 
+.peer {
+    .heading {
+        grid-column: 1/3;
+    }
+    .inner {
+        grid-column: 1/3;
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        grid-column-gap: 2rem;
+        &__item {
+            label {
+                display: block;
+            }
+            &.first {
+                grid-column: 1/2;
+            }
+            &.second {
+                grid-column: 2/3;
+            }
+            &.third {
+                grid-column: 3/4;
+                grid-row: 1/3;
+            }
+        }
+    }
+}
+
 .trend-line-indicator {
     @include recessUI;
     position: relative;
