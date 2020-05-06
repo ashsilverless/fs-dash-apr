@@ -87,6 +87,7 @@ require_once('page-sections/header-elements.php');
 		$(".edit").click(function(e){
           e.preventDefault();
 		  var peer_id = getParameterByName('id',$(this).attr('href'));
+          $("html, body").animate({ scrollTop: 0 }, "slow");
 		  $("#editpeer").load("edit_peer.php?id="+peer_id);
           $('.expand-panel.editpeer-target').addClass('open');
           $('.expand-panel__cancel-button').addClass('visible');

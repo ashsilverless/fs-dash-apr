@@ -76,11 +76,9 @@ require_once('page-sections/header-elements.php');
     <div class="asset-table">
         <div class="asset-table__foot">
             <h3 class="heading heading__4">Totals</h3>
-            <p class="<?= $steadyStyle ;?>"><?= $steady ;?></p>
-            <p class="<?= $sensibleStyle ;?>"><?= $sensible ;?></p>
-            <p class="<?= $seriousStyle ;?>"><?= $serious ;?></p>
-
-
+            <p class="<?= $steadyStyle ;?>"><?= $steady ;?>%</p>
+            <p class="<?= $sensibleStyle ;?>"><?= $sensible ;?>%</p>
+            <p class="<?= $seriousStyle ;?>"><?= $serious ;?>%</p>
         </div>
     </div><!--asset table-->
 </div>
@@ -121,6 +119,7 @@ require_once(__ROOT__.'/global-scripts.php');?>
 		$(".editasset-trigger").click(function(e){
             e.preventDefault();
             var theme_id = getParameterByName('id',$(this).attr('href'));
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             $("#editasset").load("edit_asset.php?id="+theme_id);
             $('.expand-panel.editasset-target').addClass('open');
             $('.expand-panel__cancel-button').addClass('visible');
