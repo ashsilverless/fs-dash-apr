@@ -124,9 +124,12 @@ require_once('page-sections/header-elements.php');
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
-                <input type="submit" class="button button__raised" value="Save Changes" <?php if($_SESSION['agent_level']< '2' && $agent_level == '2'){ ?>disabled<?php }?>>
-				<?php if($_SESSION['agent_level']>1){ ?><input href="#" data-href="deletestaff.php?id=<?= $staff_id;?>" data-toggle="modal" data-target="#confirm-delete" class="button button__raised" value="Delete Staff Member"><?php }?>
-
+    				<?php $submitAction = '';
+    				if($_SESSION['user_id'] != $staff_id && $_SESSION['agent_level']< '2'){ $submitAction = 'disabled'; };
+    				if($_SESSION['agent_level']< '2' && $agent_level == '2'){ $submitAction = 'disabled'; };
+    				?>
+                    <input type="submit" class="button button__raised" value="Save Changes" <?=$submitAction;?>>
+    				<?php if($_SESSION['agent_level']>1){ ?><input href="#" data-href="deletestaff.php?id=<?= $staff_id;?>" data-toggle="modal" data-target="#confirm-delete" class="button button__raised" value="Delete Staff Member"><?php }?>
             </div>
         </form>
 

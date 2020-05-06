@@ -440,7 +440,8 @@ form.fund {
 .asset-table {
     display:grid;
     &__head,
-    &__item {
+    &__item,
+    &__foot {
         display: grid;
         grid-template-columns: 6fr 5fr 2fr 2fr 2fr 3fr;
     }
@@ -471,6 +472,19 @@ form.fund {
             }
             &:nth-of-type(2) {
                 color: white;
+            }
+        }
+    }
+    &__foot {
+        padding:2rem 2rem 0;
+        .heading {
+            grid-column: 2/3;
+            color: $color_purple;
+        }
+        p {
+            color: white;
+            &.warning {
+                color: $color_red;
             }
         }
     }

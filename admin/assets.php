@@ -61,9 +61,9 @@ require_once('page-sections/header-elements.php');
         }
 
         $conn = null;        // Disconnect
-        $steady < 100 ? $steadyStyle = 'color:red;' : $steadyStyle = 'color:black;';
-        $sensible < 100 ? $sensibleStyle = 'color:red;' : $sensibleStyle = 'color:black;';
-        $$serious < 100 ? $seriousStyle = 'color:red;' : $seriousStyle = 'color:black;';
+        $steady < 100 ? $steadyStyle = 'warning' : $steadyStyle = '';
+        $sensible < 100 ? $sensibleStyle = 'warning' : $sensibleStyle = '';
+        $$serious < 100 ? $seriousStyle = 'warning' : $seriousStyle = '';
         }
 
         catch(PDOException $e) {
@@ -71,8 +71,18 @@ require_once('page-sections/header-elements.php');
         }
         ?>
 
-    </div>
 
+    </div>
+    <div class="asset-table">
+        <div class="asset-table__foot">
+            <h3 class="heading heading__4">Totals</h3>
+            <p class="<?= $steadyStyle ;?>"><?= $steady ;?></p>
+            <p class="<?= $sensibleStyle ;?>"><?= $sensible ;?></p>
+            <p class="<?= $seriousStyle ;?>"><?= $serious ;?></p>
+
+
+        </div>
+    </div><!--asset table-->
 </div>
 
         </div>

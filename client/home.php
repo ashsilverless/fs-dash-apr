@@ -102,6 +102,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                             <h3 class="heading heading__4">Gain(%)</h3>
                         </div>
                     </div>
+
                     <?php
                         // Connect and create the PDO object
                           $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
