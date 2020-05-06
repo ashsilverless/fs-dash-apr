@@ -52,7 +52,7 @@ require_once('page-sections/header-elements.php');
         <h3 class="heading heading__4">ISIN Code</h3>
     </div>
     <div>
-        <h3 class="heading heading__4">Shares Held</h3>
+        <h3 class="heading heading__4">Fund SEDOL</h3>
     </div>
     <div>
         <h3 class="heading heading__4">Benchmark</h3>
@@ -95,11 +95,6 @@ require_once('page-sections/header-elements.php');
                 $codes[] = $row['isin_code'];
                 $as_at = date('j M y',strtotime($row['correct_at'])); ?>
     <form method="post" name="form<?=$row['isin_code'];?>" id="form<?=$row['isin_code'];?>" class="fund">
-
-
-
-
-
         <div class="prices-table__account">
         <div class="fund-toggle">
             <h3 class="heading heading__4"><?= $row['fund_name'];?></h3>
@@ -109,7 +104,7 @@ require_once('page-sections/header-elements.php');
             <h3 class="heading heading__4"><?= $row['isin_code'];?></h3>
         </div>
         <div>
-            <h3 class="heading heading__4 sedol"><?= gimme_fund_shares($row['fund_sedol']);?></h3>
+            <h3 class="heading heading__4"><?= gimme_fund_shares($row['fund_sedol']);?></h3>
         </div>
         <div>
             <h3 class="heading heading__4"><?= $row['benchmark'];?></h3>

@@ -4,7 +4,7 @@ require_once '../googleLib/GoogleAuthenticator.php';
 $ga = new GoogleAuthenticator();
 
 $staff_id = $_GET['id'];
-$user_type = array("1"=>"Admin", "2"=>"Super Admin", "3"=>"User");
+
 
 try {
   // Connect and create the PDO object
@@ -48,7 +48,7 @@ if($_SESSION['agent_level']< '2'){
 	$staff_password = '**********';
 }
 
-$qrCodeUrl 	= $ga->getQRCodeGoogleUrl($email_address, $googlecode,'www.featherstone.co.uk');
+$qrCodeUrl 	= $ga->getQRCodeGoogleUrl($staff_email, $googlecode,'www.featherstone.co.uk');
 ?>
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
@@ -124,12 +124,13 @@ require_once('page-sections/header-elements.php');
             </div><!--content-->
             <div class="control">
                 <h3 class="heading heading__2">Account Actions</h3>
-    				<?php $submitAction = '';
-    				if($_SESSION['user_id'] != $staff_id && $_SESSION['agent_level']< '2'){ $submitAction = 'disabled'; };
-    				if($_SESSION['agent_level']< '2' && $agent_level == '2'){ $submitAction = 'disabled'; };
-    				?>
-                    <input type="submit" class="button button__raised" value="Save Changes" <?=$submitAction;?>>
-    				<?php if($_SESSION['agent_level']>1){ ?><input href="#" data-href="deletestaff.php?id=<?= $staff_id;?>" data-toggle="modal" data-target="#confirm-delete" class="button button__raised" value="Delete Staff Member"><?php }?>
+				<?php $submitAction = '';
+				if($_SESSION['user_id'] != $staff_id && $_SESSION['agent_level']< '2'){ $submitAction = 'disabled'; };
+				if($_SESSION['agent_level']< '2' && $agent_level == '2'){ $submitAction = 'disabled'; };
+				?>
+                <input type="submit" class="button button__raised" value="Save Changes" <?=$submitAction;?>>
+				<?php if($_SESSION['agent_level']>1){ ?><input href="#" data-href="deletestaff.php?id=<?= $staff_id;?>" data-toggle="modal" data-target="#confirm-delete" class="button button__raised" value="Delete Staff Member"><?php }?>
+
             </div>
         </form>
 
