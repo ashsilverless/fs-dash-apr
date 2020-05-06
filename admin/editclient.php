@@ -23,7 +23,8 @@ $telephone= sanSlash($_POST['telephone']);
 $del_array = explode('|',$_POST['product_ids']);     //     del123=1
 
 //      New Account
-$_POST['fs_isin_code'] !='' ? $fs_isin_code = sanSlash($_POST['fs_isin_code']) : $fs_isin_code = sanSlash($_POST['new_fs_isin_code']);
+
+$_POST['new_fs_isin_code'] !='' ? $fs_isin_code = sanSlash($_POST['new_fs_isin_code']) : $fs_isin_code = sanSlash($_POST['fs_isin_code']);
 $fs_fund_sedol= sanSlash($_POST['fs_fund_sedol']);
 $fs_product_type= sanSlash($_POST['fs_product_type']);
 $fs_fund_name= sanSlash($_POST['fs_fund_name']);
@@ -33,13 +34,13 @@ $fs_designation= sanSlash($_POST['fs_designation']);
 
 $linked_account= onlyNum($_POST['linked_account']);
 
-$linked_account != '' ? $linked_accounts= sanSlash($_POST['linked_accounts']).'|'.$linked_account : $linked_accounts= sanSlash($_POST['linked_accounts']);
+$linked_account != '' ? $linked_accounts= '|'.sanSlash($_POST['linked_accounts']).'|'.$linked_account.'|' : $linked_accounts= sanSlash($_POST['linked_accounts']);
 
 $del_linkarray = explode('|',$linked_accounts);     //     dellink123=1
 
 foreach($del_linkarray as $del_ac) {
     if($_POST['dellink'.$del_ac] == '1'){
-        $linked_accounts = str_replace($del_ac.'|','',$linked_accounts);
+        $linked_accounts = str_replace('|'.$del_ac.'|','',$linked_accounts);
     }
 }
 

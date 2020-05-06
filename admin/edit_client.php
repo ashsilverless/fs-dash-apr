@@ -88,7 +88,7 @@ require_once('page-sections/header-elements.php');
 
 <div class="container">
     <div class="border-box main-content">
-        <h1 class="heading heading__2">Client Details</h1>
+		<h1 class="heading heading__2">Client Details <span style="font-size:0.8em; font-style:italic; margin-left:30px;"><a href="#modalCLIENT" data-toggle="modal">don't click this yet !</a></span></h1>
 
 		<form action="editclient.php?id=<?=$client_id;?>" method="post" id="editclient" name="editclient" class="asset-form">
 
@@ -253,7 +253,7 @@ require_once('page-sections/header-elements.php');
                     <?php if($linked_accounts!=''){ $lnk_array = explode('|',$linked_accounts); $lnkList = '';?>
 
                     	<?php for($b=0;$b<count($lnk_array);$b++){
-                             if($lnk_array[$b]!=''){  $lnkList .= $lnk_array[$b].'|';?>
+                             if($lnk_array[$b]!=''){  $lnkList .= '|'.$lnk_array[$b].'|';?>
                             <div class="client-account-wrapper">
 
                                 <div class="head">
@@ -367,6 +367,7 @@ require_once('page-sections/header-elements.php');
     require_once('page-sections/footer-elements.php');
     require_once('modals/delete.php');
     require_once('modals/logout.php');
+require_once('modals/login_as.php');
     require_once('modals/delete-cat.php');
     require_once(__ROOT__.'/global-scripts.php');?>
 
@@ -375,6 +376,11 @@ require_once('page-sections/header-elements.php');
     </script>
 
     <script>
+
+		$('#modalCLIENT').on('show.bs.modal', function(e) {
+			var url = 'https://dashboard.featherstonepartners.co.uk/admin/autologinas.php?cid=<?=$client_id;?>';
+			$("#modalCLIENT iframe").attr("src", url);
+		});
 
 		$(".toggler").click(function(e){
           e.preventDefault();

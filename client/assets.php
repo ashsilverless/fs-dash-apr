@@ -14,7 +14,8 @@ $confirmed_date = $row['confirmed_date']= date('d M Y');
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 
 $strategy = 'fs_growth_'.strtolower(getField('tbl_fsusers','strategy','id',$_SESSION['fs_client_user_id']));
-
+//REMOVE NEXT LINE WHEN PUSHING
+//$strategy = 'fs_growth_'.strtolower(getField('tbl_fsusers','strategy','id','5'));
 
 try {
   // Connect and create the PDO object
